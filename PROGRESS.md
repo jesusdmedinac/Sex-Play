@@ -17,3 +17,7 @@
 
 ## Feature: Tension and Progress Tracker (`docs/features/tension_tracker.feature`)
 - [x] Scenario: Card count increases with each turn
+
+## Feature: WCAG 2.1 Contrast Compliance (`docs/features/wcag_contrast.feature`)
+- [x] Scenario: Primary button text satisfies AA contrast requirements
+- [x] Scenario: Safe word badge satisfies AAA contrast requirements
