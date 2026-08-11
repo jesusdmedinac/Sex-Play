@@ -36,19 +36,22 @@ sealed class GameState {
         val selectedHardLimits: Set<HardLimit>,
         val activePlayerName: String,
         val currentCard: ActionCard,
-        val activeDeck: List<ActionCard>
+        val activeDeck: List<ActionCard>,
+        val turnCount: Int = 1
     ) : GameState()
     
     data class WinnerChoice(
         val winnerName: String,
         val loserName: String,
-        val maxIntensity: IntensityLevel
+        val maxIntensity: IntensityLevel,
+        val totalTurnsPlayed: Int = 1
     ) : GameState()
     
     data class Resolution(
         val winnerName: String,
         val loserName: String,
         val consequenceTitle: String,
-        val isReward: Boolean
+        val isReward: Boolean,
+        val totalTurnsPlayed: Int = 1
     ) : GameState()
 }

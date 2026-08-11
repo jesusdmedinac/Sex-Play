@@ -57,7 +57,6 @@ class GameViewModel : ViewModel() {
         val current = _state.value as? GameState.SetupStep3 ?: return
         val finalSafeWord = safeWord.ifBlank { "Rojo" }
 
-        // Filter deck based on mood and hard limits
         val filteredDeck = filterDeck(baseActionCards, current.selectedMood, selectedHardLimits)
         val initialCard = filteredDeck.randomOrNull() ?: ActionCard("0", "Besa apasionadamente a tu pareja.")
 
@@ -70,7 +69,8 @@ class GameViewModel : ViewModel() {
             selectedHardLimits = selectedHardLimits,
             activePlayerName = current.player1Name,
             currentCard = initialCard,
-            activeDeck = filteredDeck
+            activeDeck = filteredDeck,
+            turnCount = 1
         )
     }
 
@@ -97,7 +97,8 @@ class GameViewModel : ViewModel() {
 
         _state.value = currentState.copy(
             activePlayerName = nextPlayer,
-            currentCard = nextCard
+            currentCard = nextCard,
+            turnCount = currentState.turnCount + 1
         )
     }
 
@@ -113,7 +114,8 @@ class GameViewModel : ViewModel() {
         _state.value = GameState.WinnerChoice(
             winnerName = winner,
             loserName = loser,
-            maxIntensity = currentState.maxIntensity
+            maxIntensity = currentState.maxIntensity,
+            totalTurnsPlayed = currentState.turnCount
         )
     }
 
@@ -133,7 +135,8 @@ class GameViewModel : ViewModel() {
             winnerName = currentState.winnerName,
             loserName = currentState.loserName,
             consequenceTitle = selected,
-            isReward = isReward
+            isReward = isReward,
+            totalTurnsPlayed = currentState.totalTurnsPlayed
         )
     }
 

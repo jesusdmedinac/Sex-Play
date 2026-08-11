@@ -8,3 +8,12 @@
 
 ## Feature: Safe Word and Consent Boundaries (`docs/features/consent_boundaries.feature`)
 - [x] Scenario: Setting a custom safe word and excluding temperature play
+
+## Feature: Sensual Dark Theme (`docs/features/dark_theme.feature`)
+- [x] Scenario: App applies custom theme tokens
+
+## Feature: Card Flip Animation (`docs/features/card_flip.feature`)
+- [x] Scenario: Tapping Next Turn triggers a card flip
+
+## Feature: Tension and Progress Tracker (`docs/features/tension_tracker.feature`)
+- [x] Scenario: Card count increases with each turn

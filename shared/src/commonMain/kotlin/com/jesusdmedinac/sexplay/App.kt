@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jesusdmedinac.sexplay.domain.model.state.GameState
 import com.jesusdmedinac.sexplay.presentation.game.GameViewModel
+import com.jesusdmedinac.sexplay.presentation.theme.SexPlayTheme
 import com.jesusdmedinac.sexplay.presentation.ui.GameScreen
 import com.jesusdmedinac.sexplay.presentation.ui.ResolutionScreen
 import com.jesusdmedinac.sexplay.presentation.ui.SetupWizardStep1
@@ -23,7 +24,7 @@ import com.jesusdmedinac.sexplay.presentation.ui.WinnerChoiceScreen
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    SexPlayTheme {
         val viewModel = viewModel { GameViewModel() }
         val state by viewModel.state.collectAsState()
 
