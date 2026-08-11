@@ -8,15 +8,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.jesusdmedinac.sexplay.presentation.game.GameState
+import com.jesusdmedinac.sexplay.domain.model.state.GameState
 import com.jesusdmedinac.sexplay.presentation.game.GameViewModel
 import com.jesusdmedinac.sexplay.presentation.ui.GameScreen
 import com.jesusdmedinac.sexplay.presentation.ui.ResolutionScreen
-import com.jesusdmedinac.sexplay.presentation.ui.SetupScreen
+import com.jesusdmedinac.sexplay.presentation.ui.SetupWizardStep1
+import com.jesusdmedinac.sexplay.presentation.ui.SetupWizardStep2
+import com.jesusdmedinac.sexplay.presentation.ui.SetupWizardStep3
 import com.jesusdmedinac.sexplay.presentation.ui.WinnerChoiceScreen
 
 @Composable
@@ -33,10 +34,29 @@ fun App() {
                 .safeContentPadding()
         ) {
             when (val currentState = state) {
-                is GameState.Setup -> {
-                    SetupScreen(
-                        onStartGame = { p1, p2, intensity ->
-                            viewModel.setupGame(p1, p2, intensity)
+                is GameState.SetupStep1 -> {
+                    SetupWizardStep1(
+                        state = currentState,
+                        onNext = { p1, p2 ->
+                            viewModel.goToStep2(p1, p2)
+                        }
+                    )
+                }
+                is GameState.SetupStep2 -> {
+                    SetupWizardStep2(
+                        state = currentState,
+                        onBack = { viewModel.backToStep1() },
+                        onNext = { mood, intensity ->
+                            viewModel.goToStep3(mood, intensity)
+                        }
+                    )
+                }
+                is GameState.SetupStep3 -> {
+                    SetupWizardStep3(
+                        state = currentState,
+                        onBack = { viewModel.backToStep2() },
+                        onFinish = { safeWord, limits ->
+                            viewModel.finishSetup(safeWord, limits)
                         }
                     )
                 }

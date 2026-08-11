@@ -7,7 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.jesusdmedinac.sexplay.presentation.game.GameState
+import com.jesusdmedinac.sexplay.domain.model.state.GameState
 
 @Composable
 fun WinnerChoiceScreen(
