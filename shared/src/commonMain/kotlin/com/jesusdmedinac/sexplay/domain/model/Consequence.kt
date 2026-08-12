@@ -1,10 +1,10 @@
 package com.jesusdmedinac.sexplay.domain.model
 
-enum class IntensityLevel(val level: Int) {
-    LOW(1),
-    MEDIUM(2),
-    HIGH(3),
-    EXTREME(4)
+enum class IntensityLevel(val level: Int, val displayName: String) {
+    LOW(1, "Juguetón & Sensorial"),
+    MEDIUM(2, "Dominación & Control"),
+    HIGH(3, "Control & Castidad"),
+    EXTREME(4, "Línea del Tabú")
 }
 
 enum class ConsequenceType {

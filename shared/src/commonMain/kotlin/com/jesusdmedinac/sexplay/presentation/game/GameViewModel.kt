@@ -3,6 +3,7 @@ package com.jesusdmedinac.sexplay.presentation.game
 import androidx.lifecycle.ViewModel
 import com.jesusdmedinac.sexplay.domain.model.ActionCard
 import com.jesusdmedinac.sexplay.domain.model.ConsequenceType
+import com.jesusdmedinac.sexplay.domain.model.GameMode
 import com.jesusdmedinac.sexplay.domain.model.GameMood
 import com.jesusdmedinac.sexplay.domain.model.HardLimit
 import com.jesusdmedinac.sexplay.domain.model.IntensityLevel
@@ -15,49 +16,119 @@ import kotlinx.coroutines.flow.asStateFlow
 
 class GameViewModel : ViewModel() {
 
-    private val _state = MutableStateFlow<GameState>(GameState.SetupStep1())
+    private val _state = MutableStateFlow<GameState>(GameState.SetupStep1Names())
     val state: StateFlow<GameState> = _state.asStateFlow()
 
-    fun goToStep2(player1Name: String, player2Name: String) {
-        _state.value = GameState.SetupStep2(
+    // Step 1 -> Step 2
+    fun goToStep2Location(player1Name: String, player2Name: String) {
+        _state.value = GameState.SetupStep2Location(
             player1Name = player1Name.ifBlank { "Jugador 1" },
             player2Name = player2Name.ifBlank { "Jugador 2" }
         )
     }
 
-    fun backToStep1() {
-        val current = _state.value as? GameState.SetupStep2 ?: return
-        _state.value = GameState.SetupStep1(
+    // Step 2 -> Step 3
+    fun goToStep3Duration(isRemote: Boolean) {
+        val current = _state.value as? GameState.SetupStep2Location ?: return
+        _state.value = GameState.SetupStep3Duration(
             player1Name = current.player1Name,
-            player2Name = current.player2Name
+            player2Name = current.player2Name,
+            isRemote = isRemote
         )
     }
 
-    fun goToStep3(selectedMood: GameMood, maxIntensity: IntensityLevel) {
-        val current = _state.value as? GameState.SetupStep2 ?: return
-        _state.value = GameState.SetupStep3(
+    // Step 3 -> Step 4
+    fun goToStep4Mood(gameMode: GameMode) {
+        val current = _state.value as? GameState.SetupStep3Duration ?: return
+        _state.value = GameState.SetupStep4Mood(
             player1Name = current.player1Name,
             player2Name = current.player2Name,
-            selectedMood = selectedMood,
+            isRemote = current.isRemote,
+            gameMode = gameMode
+        )
+    }
+
+    // Step 4 -> Step 5
+    fun goToStep5Intensity(selectedMood: GameMood) {
+        val current = _state.value as? GameState.SetupStep4Mood ?: return
+        _state.value = GameState.SetupStep5Intensity(
+            player1Name = current.player1Name,
+            player2Name = current.player2Name,
+            isRemote = current.isRemote,
+            gameMode = current.gameMode,
+            selectedMood = selectedMood
+        )
+    }
+
+    // Step 5 -> Step 6
+    fun goToStep6Limits(maxIntensity: IntensityLevel) {
+        val current = _state.value as? GameState.SetupStep5Intensity ?: return
+        _state.value = GameState.SetupStep6Limits(
+            player1Name = current.player1Name,
+            player2Name = current.player2Name,
+            isRemote = current.isRemote,
+            gameMode = current.gameMode,
+            selectedMood = current.selectedMood,
             maxIntensity = maxIntensity
         )
     }
 
-    fun backToStep2() {
-        val current = _state.value as? GameState.SetupStep3 ?: return
-        _state.value = GameState.SetupStep2(
+    // Step 6 -> Step 7
+    fun goToStep7SafeWord(selectedHardLimits: Set<HardLimit>) {
+        val current = _state.value as? GameState.SetupStep6Limits ?: return
+        _state.value = GameState.SetupStep7SafeWord(
             player1Name = current.player1Name,
             player2Name = current.player2Name,
+            isRemote = current.isRemote,
+            gameMode = current.gameMode,
             selectedMood = current.selectedMood,
-            maxIntensity = current.maxIntensity
+            maxIntensity = current.maxIntensity,
+            selectedHardLimits = selectedHardLimits
         )
     }
 
-    fun finishSetup(safeWord: String, selectedHardLimits: Set<HardLimit>) {
-        val current = _state.value as? GameState.SetupStep3 ?: return
+    // Back handlers
+    fun backToStep1() {
+        val current = _state.value as? GameState.SetupStep2Location ?: return
+        _state.value = GameState.SetupStep1Names(current.player1Name, current.player2Name)
+    }
+
+    fun backToStep2() {
+        val current = _state.value as? GameState.SetupStep3Duration ?: return
+        _state.value = GameState.SetupStep2Location(current.player1Name, current.player2Name, current.isRemote)
+    }
+
+    fun backToStep3() {
+        val current = _state.value as? GameState.SetupStep4Mood ?: return
+        _state.value = GameState.SetupStep3Duration(current.player1Name, current.player2Name, current.isRemote, current.gameMode)
+    }
+
+    fun backToStep4() {
+        val current = _state.value as? GameState.SetupStep5Intensity ?: return
+        _state.value = GameState.SetupStep4Mood(current.player1Name, current.player2Name, current.isRemote, current.gameMode, current.selectedMood)
+    }
+
+    fun backToStep5() {
+        val current = _state.value as? GameState.SetupStep6Limits ?: return
+        _state.value = GameState.SetupStep5Intensity(current.player1Name, current.player2Name, current.isRemote, current.gameMode, current.selectedMood, current.maxIntensity)
+    }
+
+    fun backToStep6() {
+        val current = _state.value as? GameState.SetupStep7SafeWord ?: return
+        _state.value = GameState.SetupStep6Limits(current.player1Name, current.player2Name, current.isRemote, current.gameMode, current.selectedMood, current.maxIntensity, current.selectedHardLimits)
+    }
+
+    fun finishSetup(safeWord: String, currentTimeMillis: Long = 0L) {
+        val current = _state.value as? GameState.SetupStep7SafeWord ?: return
         val finalSafeWord = safeWord.ifBlank { "Rojo" }
 
-        val filteredDeck = filterDeck(baseActionCards, current.selectedMood, selectedHardLimits)
+        val finalLimits = if (current.isRemote) {
+            current.selectedHardLimits + HardLimit.PHYSICAL_CONTACT
+        } else {
+            current.selectedHardLimits
+        }
+
+        val filteredDeck = filterDeck(baseActionCards, current.selectedMood, finalLimits)
         val initialCard = filteredDeck.randomOrNull() ?: ActionCard("0", "Besa apasionadamente a tu pareja.")
 
         _state.value = GameState.Playing(
@@ -65,12 +136,14 @@ class GameViewModel : ViewModel() {
             player2Name = current.player2Name,
             selectedMood = current.selectedMood,
             maxIntensity = current.maxIntensity,
+            gameMode = current.gameMode,
             safeWord = finalSafeWord,
-            selectedHardLimits = selectedHardLimits,
+            selectedHardLimits = finalLimits,
             activePlayerName = current.player1Name,
             currentCard = initialCard,
             activeDeck = filteredDeck,
-            turnCount = 1
+            turnCount = 1,
+            startTimeMillis = currentTimeMillis
         )
     }
 
@@ -86,8 +159,22 @@ class GameViewModel : ViewModel() {
         }
     }
 
-    fun nextTurn() {
+    fun nextTurn(currentTimeMillis: Long = 0L) {
         val currentState = _state.value as? GameState.Playing ?: return
+
+        if (currentState.turnCount >= currentState.gameMode.maxCards) {
+            val duration = calculateDuration(currentState.startTimeMillis, currentTimeMillis)
+            _state.value = GameState.WinnerChoice(
+                winnerName = "${currentState.player1Name} y ${currentState.player2Name}",
+                loserName = "Nadie",
+                maxIntensity = currentState.maxIntensity,
+                totalTurnsPlayed = currentState.turnCount,
+                durationSeconds = duration,
+                isSharedVictory = true
+            )
+            return
+        }
+
         val nextPlayer = if (currentState.activePlayerName == currentState.player1Name) {
             currentState.player2Name
         } else {
@@ -102,7 +189,7 @@ class GameViewModel : ViewModel() {
         )
     }
 
-    fun surrender() {
+    fun surrender(currentTimeMillis: Long = 0L) {
         val currentState = _state.value as? GameState.Playing ?: return
         val winner = if (currentState.activePlayerName == currentState.player1Name) {
             currentState.player2Name
@@ -110,12 +197,15 @@ class GameViewModel : ViewModel() {
             currentState.player1Name
         }
         val loser = currentState.activePlayerName
+        val duration = calculateDuration(currentState.startTimeMillis, currentTimeMillis)
 
         _state.value = GameState.WinnerChoice(
             winnerName = winner,
             loserName = loser,
             maxIntensity = currentState.maxIntensity,
-            totalTurnsPlayed = currentState.turnCount
+            totalTurnsPlayed = currentState.turnCount,
+            durationSeconds = duration,
+            isSharedVictory = false
         )
     }
 
@@ -136,11 +226,18 @@ class GameViewModel : ViewModel() {
             loserName = currentState.loserName,
             consequenceTitle = selected,
             isReward = isReward,
-            totalTurnsPlayed = currentState.totalTurnsPlayed
+            totalTurnsPlayed = currentState.totalTurnsPlayed,
+            durationSeconds = currentState.durationSeconds,
+            isSharedVictory = currentState.isSharedVictory
         )
     }
 
+    private fun calculateDuration(startTime: Long, endTime: Long): Long {
+        if (startTime == 0L || endTime == 0L || endTime < startTime) return 0L
+        return (endTime - startTime) / 1000L
+    }
+
     fun resetGame() {
-        _state.value = GameState.SetupStep1()
+        _state.value = GameState.SetupStep1Names()
     }
 }

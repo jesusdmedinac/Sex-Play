@@ -16,9 +16,13 @@ import com.jesusdmedinac.sexplay.presentation.game.GameViewModel
 import com.jesusdmedinac.sexplay.presentation.theme.SexPlayTheme
 import com.jesusdmedinac.sexplay.presentation.ui.GameScreen
 import com.jesusdmedinac.sexplay.presentation.ui.ResolutionScreen
-import com.jesusdmedinac.sexplay.presentation.ui.SetupWizardStep1
-import com.jesusdmedinac.sexplay.presentation.ui.SetupWizardStep2
-import com.jesusdmedinac.sexplay.presentation.ui.SetupWizardStep3
+import com.jesusdmedinac.sexplay.presentation.ui.SetupStep1NamesScreen
+import com.jesusdmedinac.sexplay.presentation.ui.SetupStep2LocationScreen
+import com.jesusdmedinac.sexplay.presentation.ui.SetupStep3DurationScreen
+import com.jesusdmedinac.sexplay.presentation.ui.SetupStep4MoodScreen
+import com.jesusdmedinac.sexplay.presentation.ui.SetupStep5IntensityScreen
+import com.jesusdmedinac.sexplay.presentation.ui.SetupStep6LimitsScreen
+import com.jesusdmedinac.sexplay.presentation.ui.SetupStep7SafeWordScreen
 import com.jesusdmedinac.sexplay.presentation.ui.WinnerChoiceScreen
 
 @Composable
@@ -35,37 +39,73 @@ fun App() {
                 .safeContentPadding()
         ) {
             when (val currentState = state) {
-                is GameState.SetupStep1 -> {
-                    SetupWizardStep1(
+                is GameState.SetupStep1Names -> {
+                    SetupStep1NamesScreen(
                         state = currentState,
                         onNext = { p1, p2 ->
-                            viewModel.goToStep2(p1, p2)
+                            viewModel.goToStep2Location(p1, p2)
                         }
                     )
                 }
-                is GameState.SetupStep2 -> {
-                    SetupWizardStep2(
+                is GameState.SetupStep2Location -> {
+                    SetupStep2LocationScreen(
                         state = currentState,
                         onBack = { viewModel.backToStep1() },
-                        onNext = { mood, intensity ->
-                            viewModel.goToStep3(mood, intensity)
+                        onNext = { isRemote ->
+                            viewModel.goToStep3Duration(isRemote)
                         }
                     )
                 }
-                is GameState.SetupStep3 -> {
-                    SetupWizardStep3(
+                is GameState.SetupStep3Duration -> {
+                    SetupStep3DurationScreen(
                         state = currentState,
                         onBack = { viewModel.backToStep2() },
-                        onFinish = { safeWord, limits ->
-                            viewModel.finishSetup(safeWord, limits)
+                        onNext = { gameMode ->
+                            viewModel.goToStep4Mood(gameMode)
+                        }
+                    )
+                }
+                is GameState.SetupStep4Mood -> {
+                    SetupStep4MoodScreen(
+                        state = currentState,
+                        onBack = { viewModel.backToStep3() },
+                        onNext = { mood ->
+                            viewModel.goToStep5Intensity(mood)
+                        }
+                    )
+                }
+                is GameState.SetupStep5Intensity -> {
+                    SetupStep5IntensityScreen(
+                        state = currentState,
+                        onBack = { viewModel.backToStep4() },
+                        onNext = { intensity ->
+                            viewModel.goToStep6Limits(intensity)
+                        }
+                    )
+                }
+                is GameState.SetupStep6Limits -> {
+                    SetupStep6LimitsScreen(
+                        state = currentState,
+                        onBack = { viewModel.backToStep5() },
+                        onNext = { limits ->
+                            viewModel.goToStep7SafeWord(limits)
+                        }
+                    )
+                }
+                is GameState.SetupStep7SafeWord -> {
+                    SetupStep7SafeWordScreen(
+                        state = currentState,
+                        onBack = { viewModel.backToStep6() },
+                        onFinish = { safeWord ->
+                            viewModel.finishSetup(safeWord, currentTimeMillis = System.currentTimeMillis())
                         }
                     )
                 }
                 is GameState.Playing -> {
                     GameScreen(
                         state = currentState,
-                        onNextTurn = { viewModel.nextTurn() },
-                        onSurrender = { viewModel.surrender() }
+                        onNextTurn = { viewModel.nextTurn(currentTimeMillis = System.currentTimeMillis()) },
+                        onSurrender = { viewModel.surrender(currentTimeMillis = System.currentTimeMillis()) }
                     )
                 }
                 is GameState.WinnerChoice -> {

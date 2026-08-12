@@ -47,7 +47,10 @@ fun GameScreen(
             }
 
             Spacer(modifier = Modifier.height(16.dp))
-            TensionProgressBar(turnCount = state.turnCount)
+            TensionProgressBar(
+                turnCount = state.turnCount,
+                maxCards = state.gameMode.maxCards
+            )
         }
 
         // Active Player & Animated Card
