@@ -36,4 +36,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: 'sex-play'
           directory: 'webApp/build/dist/wasmJs/productionExecutable'
-          gitToDeployment: true
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          wranglerVersion: '3'
