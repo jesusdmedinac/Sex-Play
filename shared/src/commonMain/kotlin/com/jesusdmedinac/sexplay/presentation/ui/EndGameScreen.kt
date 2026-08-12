@@ -36,7 +36,7 @@ fun WinnerChoiceScreen(
             Text(
                 text = "¡Completaron el juego juntos!",
                 style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.tertiary
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text("Resistencia compartida. Ambos ganan un premio.", style = MaterialTheme.typography.bodyLarge)
@@ -90,7 +90,8 @@ fun ResolutionScreen(
     ) {
         Text(
             text = if (state.isReward) "Premio para ${state.winnerName}" else "Castigo para ${state.loserName}",
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleLarge,
+            color = if (state.isReward) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.error
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -102,7 +103,7 @@ fun ResolutionScreen(
                 .clickable { showConsequenceDialog = true },
             shape = ExpressiveAsymmetricCardShape,
             colors = CardDefaults.cardColors(
-                containerColor = if (state.isReward) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.errorContainer
+                containerColor = if (state.isReward) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.errorContainer
             ),
             elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
         ) {
