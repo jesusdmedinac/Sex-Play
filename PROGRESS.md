@@ -45,3 +45,7 @@
 
 ## Feature: GitHub Actions Automated Cloudflare Deployment (`docs/features/github_actions_deploy.feature`)
 - [x] Scenario: Continuous deployment on push to main
+
+## Feature: Card Click Description View (`docs/features/card_description_view.feature`)
+- [x] Scenario: Tapping an action card opens the detail dialog
+- [x] Scenario: Tapping a consequence card shows consequence instructions

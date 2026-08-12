@@ -115,4 +115,23 @@ class GameViewModelTest {
         assertFalse(state.isSharedVictory)
         assertEquals(120L, state.durationSeconds)
     }
+
+    @Test
+    fun `Selecting consequence passes non-empty title and description to Resolution state`() {
+        val viewModel = GameViewModel()
+        viewModel.goToStep2Location("Alice", "Bob")
+        viewModel.goToStep3Duration(isRemote = false)
+        viewModel.goToStep4Mood(GameMode.EXPRESS)
+        viewModel.goToStep5Intensity(GameMood.ROMANTIC)
+        viewModel.goToStep6Limits(IntensityLevel.EXTREME)
+        viewModel.goToStep7SafeWord(emptySet())
+        viewModel.finishSetup("Red")
+        viewModel.surrender()
+
+        viewModel.selectConsequence(isReward = true)
+
+        val resolution = viewModel.state.value as GameState.Resolution
+        assertTrue(resolution.consequenceTitle.isNotBlank())
+        assertTrue(resolution.consequenceDescription.isNotBlank())
+    }
 }

@@ -219,12 +219,15 @@ class GameViewModel : ViewModel() {
             it.type == consequenceType && it.level.level <= maxLevelInt
         }
 
-        val selected = validConsequences.randomOrNull()?.title ?: "Sin consecuencia disponible"
+        val selected = validConsequences.randomOrNull()
+        val title = selected?.title ?: "Sin consecuencia disponible"
+        val desc = selected?.description ?: ""
 
         _state.value = GameState.Resolution(
             winnerName = currentState.winnerName,
             loserName = currentState.loserName,
-            consequenceTitle = selected,
+            consequenceTitle = title,
+            consequenceDescription = desc,
             isReward = isReward,
             totalTurnsPlayed = currentState.totalTurnsPlayed,
             durationSeconds = currentState.durationSeconds,

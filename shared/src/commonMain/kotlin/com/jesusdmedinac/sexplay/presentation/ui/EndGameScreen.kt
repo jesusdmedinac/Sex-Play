@@ -1,8 +1,9 @@
 package com.jesusdmedinac.sexplay.presentation.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -76,6 +77,8 @@ fun ResolutionScreen(
     state: GameState.Resolution,
     onPlayAgain: () -> Unit
 ) {
+    var showConsequenceDialog by remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -89,7 +92,10 @@ fun ResolutionScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         Card(
-            modifier = Modifier.fillMaxWidth(0.85f).height(200.dp),
+            modifier = Modifier
+                .fillMaxWidth(0.85f)
+                .height(200.dp)
+                .clickable { showConsequenceDialog = true },
             colors = CardDefaults.cardColors(
                 containerColor = if (state.isReward) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.errorContainer
             )
@@ -98,11 +104,19 @@ fun ResolutionScreen(
                 modifier = Modifier.fillMaxSize().padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = state.consequenceTitle,
-                    style = MaterialTheme.typography.headlineSmall,
-                    textAlign = TextAlign.Center
-                )
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = state.consequenceTitle,
+                        style = MaterialTheme.typography.headlineSmall,
+                        textAlign = TextAlign.Center
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Text(
+                        text = "👁️ Toca para ver instrucciones completas",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+                    )
+                }
             }
         }
 
@@ -145,5 +159,30 @@ fun ResolutionScreen(
         ) {
             Text("Jugar de Nuevo")
         }
+    }
+
+    if (showConsequenceDialog) {
+        AlertDialog(
+            onDismissRequest = { showConsequenceDialog = false },
+            title = {
+                Text(
+                    text = state.consequenceTitle,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = if (state.isReward) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
+                )
+            },
+            text = {
+                Text(
+                    text = if (state.consequenceDescription.isNotBlank()) state.consequenceDescription else "Disfruta o cumple tu consecuencia juntos.",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            },
+            confirmButton = {
+                Button(onClick = { showConsequenceDialog = false }) {
+                    Text("¡Entendido! 👍")
+                }
+            }
+        )
     }
 }

@@ -1,11 +1,13 @@
 package com.jesusdmedinac.sexplay.presentation.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.jesusdmedinac.sexplay.domain.model.state.GameState
 import com.jesusdmedinac.sexplay.presentation.ui.components.FlipCardContainer
@@ -17,6 +19,8 @@ fun GameScreen(
     onNextTurn: () -> Unit,
     onSurrender: () -> Unit
 ) {
+    var showDetailDialog by remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -70,12 +74,24 @@ fun GameScreen(
                 color = MaterialTheme.colorScheme.primary
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-            FlipCardContainer(
-                cardText = state.currentCard.text,
-                onCardClick = onNextTurn
-            )
+            Box(modifier = Modifier.clickable { showDetailDialog = true }) {
+                FlipCardContainer(
+                    cardText = state.currentCard.text,
+                    onCardClick = { showDetailDialog = true }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            TextButton(onClick = { showDetailDialog = true }) {
+                Text(
+                    text = "👁️ Ver explicación detallada",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.secondary
+                )
+            }
         }
 
         // Action Buttons
@@ -97,5 +113,30 @@ fun GameScreen(
                 Text("¡Me rindo! (No aguanto más)")
             }
         }
+    }
+
+    if (showDetailDialog) {
+        AlertDialog(
+            onDismissRequest = { showDetailDialog = false },
+            title = {
+                Text(
+                    text = state.currentCard.text,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            },
+            text = {
+                Text(
+                    text = state.currentCard.description,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            },
+            confirmButton = {
+                Button(onClick = { showDetailDialog = false }) {
+                    Text("¡Entendido! 👍")
+                }
+            }
+        )
     }
 }

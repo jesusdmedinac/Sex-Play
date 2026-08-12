@@ -91,6 +91,7 @@ sealed class GameState {
         val winnerName: String,
         val loserName: String,
         val consequenceTitle: String,
+        val consequenceDescription: String = "",
         val isReward: Boolean,
         val totalTurnsPlayed: Int = 1,
         val durationSeconds: Long = 0L,
