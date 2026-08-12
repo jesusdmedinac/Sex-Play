@@ -56,3 +56,7 @@
 ## Feature: Material 3 Expressive UI Transformation (`docs/features/m3_expressive.feature`)
 - [x] Scenario: Expressive spring motion on card interaction
 - [x] Scenario: Multi-layer tonal surfaces and asymmetric shapes
+
+## Feature: Google Stitch Screen Design Specifications (`SCREENS_DESIGN.md`)
+- [x] Scenario: Full 10-screen UI specification and Stitch catalog document
+
