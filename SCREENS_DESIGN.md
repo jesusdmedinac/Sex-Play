@@ -1,212 +1,212 @@
-# Especificación y Catálogo de Diseños por Pantalla — Sex Play
+# Screen Design Specifications & Catalog — Sex Play
 
-Este documento contiene la especificación detallada de interfaz y experiencia de usuario para cada una de las 10 pantallas del proyecto **Sex Play (Adult Couples Card Game)**, diseñadas en **Google Stitch** (`StitchMCP`) bajo el sistema de diseño **Eros & Ember (Material 3 Expressive)**.
+This document contains the detailed user interface and user experience specification for each of the 10 screens in the **Sex Play (Adult Couples Card Game)** project, designed in **Google Stitch** (`StitchMCP`) under the **Eros & Ember (Material 3 Expressive)** design system.
 
 ---
 
-## 🎨 Sistema de Diseño Global: *Eros & Ember*
+## 🎨 Global Design System: *Eros & Ember*
 
-* **ID de Proyecto Stitch:** `5643953407614369854`
-* **Asset de Sistema de Diseño:** `assets/e8a5425cd6784e22b05dbb22541d8a30`
-* **Estilo Visual:** *Sensual Dark & Material 3 Expressive*
-* **Paleta de Colores Base:**
+* **Stitch Project ID:** `5643953407614369854`
+* **Design System Asset ID:** `assets/e8a5425cd6784e22b05dbb22541d8a30`
+* **Visual Style:** *Sensual Dark & Material 3 Expressive*
+* **Base Color Palette:**
   * **Background:** Deep Plum (`#16081A`)
-  * **Primary:** Neon Pink (`#EC407A`) — Texto sobre primario: `#18040C` (WCAG 2.1 AA)
+  * **Primary:** Neon Pink (`#EC407A`) — On-Primary text: `#18040C` (WCAG 2.1 AA)
   * **Secondary:** Rose Gold (`#FFB74D`)
   * **Tertiary:** Emerald Green (`#63DF73`) — Container: `#21A643`
-  * **Error / Safety:** Crimson Carmín (`#FF8099`) — Container: `#2D080D` (WCAG 2.1 AAA)
-  * **Capas de Contenedores de Superficie:**
+  * **Error / Safety:** Crimson (`#FF8099`) — Container: `#2D080D` (WCAG 2.1 AAA)
+  * **Surface Container Layers:**
     1. `SurfaceContainerLowest`: `#17091B`
     2. `SurfaceContainerLow`: `#251629`
     3. `SurfaceContainer`: `#25102A`
     4. `SurfaceContainerHigh`: `#342438`
     5. `SurfaceContainerHighest`: `#402F43`
-* **Trío Tipográfico:**
-  * **Titulares (`Headline`):** `Sora` (Bold 700 / ExtraBold 800)
-  * **Cuerpo (`Body`):** `Inter` (Regular 400 / Medium 500)
-  * **Etiquetas (`Label`):** `Space Grotesk` (Bold 700, `letter-spacing: 0.1em`)
-* **Geometría de Componentes:**
-  * **Tarjetas Asimétricas:** Radio de esquinas alternado (`topStart: 32px`, `topEnd: 12px`, `bottomEnd: 32px`, `bottomStart: 12px`).
-  * **Botones Expresivos:** Formas elípticas pill totalmente redondeadas (`24px` / `9999px`).
+* **Typography Scale:**
+  * **Headlines:** `Sora` (Bold 700 / ExtraBold 800)
+  * **Body Copy:** `Inter` (Regular 400 / Medium 500)
+  * **Labels & Badges:** `Space Grotesk` (Bold 700, `letter-spacing: 0.1em`)
+* **Component Geometry:**
+  * **Asymmetric Cards:** Alternating corner radii (`topStart: 32px`, `topEnd: 12px`, `bottomEnd: 32px`, `bottomStart: 12px`).
+  * **Expressive Buttons:** Fully rounded pill shapes (`24px` / `9999px`).
 
 ---
 
-## 📑 Índice de Pantallas Diseñadas
+## 📑 Screen Index
 
-1. [Pantalla 1: Nombres de los Jugadores (`SetupStep1NamesScreen`)](#pantalla-1-nombres-de-los-jugadores-setupstep1namesscreen)
-2. [Pantalla 2: Ubicación / Presencial vs Remoto (`SetupStep2LocationScreen`)](#pantalla-2-ubicación--presencial-vs-remoto-setupstep2locationscreen)
-3. [Pantalla 3: Duración y Modo de Juego (`SetupStep3DurationScreen`)](#pantalla-3-duración-y-modo-de-juego-setupstep3durationscreen)
-4. [Pantalla 4: Ambiente y Vibe (`SetupStep4MoodScreen`)](#pantalla-4-ambiente-y-vibe-setupstep4moodscreen)
-5. [Pantalla 5: Nivel de Intensidad Máximo (`SetupStep5IntensityScreen`)](#pantalla-5-nivel-de-intensidad-máximo-setupstep5intensityscreen)
-6. [Pantalla 6: Límites Duros y Consentimiento (`SetupStep6LimitsScreen`)](#pantalla-6-límites-duros-y-consentimiento-setupstep6limitsscreen)
-7. [Pantalla 7: Palabra de Seguridad (`SetupStep7SafeWordScreen`)](#pantalla-7-palabra-de-seguridad-setupstep7safewordscreen)
-8. [Pantalla 8: Pantalla Principal de Juego (`GameScreen`)](#pantalla-8-pantalla-principal-de-juego-gamescreen)
-9. [Pantalla 9: Selección de Consecuencia / Elección del Ganador (`WinnerChoiceScreen`)](#pantalla-9-selección-de-consecuencia--elección-del-ganador-winnerchoicescreen)
-10. [Pantalla 10: Resolución Final y Estadísticas (`ResolutionScreen`)](#pantalla-10-resolución-final-y-estadísticas-resolutionscreen)
+1. [Screen 1: Player Names Setup (`SetupStep1NamesScreen`)](#screen-1-player-names-setup-setupstep1namesscreen)
+2. [Screen 2: Location Setup / In-Person vs Remote (`SetupStep2LocationScreen`)](#screen-2-location-setup--in-person-vs-remote-setupstep2locationscreen)
+3. [Screen 3: Duration & Game Mode Setup (`SetupStep3DurationScreen`)](#screen-3-duration--game-mode-setup-setupstep3durationscreen)
+4. [Screen 4: Mood & Vibe Setup (`SetupStep4MoodScreen`)](#screen-4-mood--vibe-setup-setupstep4moodscreen)
+5. [Screen 5: Maximum Intensity Level Setup (`SetupStep5IntensityScreen`)](#screen-5-maximum-intensity-level-setup-setupstep5intensityscreen)
+6. [Screen 6: Hard Limits & Consent Setup (`SetupStep6LimitsScreen`)](#screen-6-hard-limits--consent-setup-setupstep6limitsscreen)
+7. [Screen 7: Safe Word Setup (`SetupStep7SafeWordScreen`)](#screen-7-safe-word-setup-setupstep7safewordscreen)
+8. [Screen 8: Main Gameplay Screen (`GameScreen`)](#screen-8-main-gameplay-screen-gamescreen)
+9. [Screen 9: Winner Choice & Consequence Selection (`WinnerChoiceScreen`)](#screen-9-winner-choice--consequence-selection-winnerchoicescreen)
+10. [Screen 10: Final Resolution & Session Statistics (`ResolutionScreen`)](#screen-10-final-resolution--session-statistics-resolutionscreen)
 
 ---
 
-### Pantalla 1: Nombres de los Jugadores (`SetupStep1NamesScreen`)
+### Screen 1: Player Names Setup (`SetupStep1NamesScreen`)
 
 * **Stitch Resource Name:** `projects/5643953407614369854/screens/04b50425af9f48bf9e3e1fcd1ab06c12`
-* **Título en Stitch:** `Player Names Setup`
-* **Objetivo:** Registro inicial de los nombres de la pareja para personalizar la narrativa de las cartas y turnos.
-* **Detalles del Diseño Visual:**
-  * **Encabezado:** Titular *"¿Cómo se llaman?"* en tipografía `Sora` ExtraBold sobre fondo Deep Plum (`#16081A`).
-  * **Campos de Entrada:** Dos contenedores minimalistas con estilo `surfaceContainerLow` (`#251629`), línea inferior de enfoque en Rosa Neón (`#EC407A`) y etiquetas `"Jugador 1"` y `"Jugador 2"`.
-  * **Acciones:** Botón elíptico Rosa Neón Primario `"Siguiente"` en la parte inferior.
-* **Componentes Compose Asociados:** `SetupWizardScreen.kt` -> Paso 1 (`OutlinedTextField`).
+* **Stitch Title:** `Player Names Setup`
+* **Objective:** Initial registration of player names to personalize the game narrative and turn markers.
+* **Visual Design Details:**
+  * **Header:** Title *"¿Cómo se llaman?"* in `Sora` ExtraBold typography on Deep Plum (`#16081A`) background.
+  * **Input Fields:** Two minimalist containers styled with `surfaceContainerLow` (`#251629`), Neon Pink (`#EC407A`) focus line, labeled `"Player 1"` and `"Player 2"`.
+  * **Actions:** Primary Neon Pink pill button `"Siguiente"` (Next) at the bottom.
+* **Associated Compose Components:** `SetupWizardScreen.kt` -> Step 1 (`OutlinedTextField`).
 
 ---
 
-### Pantalla 2: Ubicación / Presencial vs Remoto (`SetupStep2LocationScreen`)
+### Screen 2: Location Setup / In-Person vs Remote (`SetupStep2LocationScreen`)
 
 * **Stitch Resource Name:** `projects/5643953407614369854/screens/92aadd28343648c881f6e9ae22a98e06`
-* **Título en Stitch:** `Location Setup`
-* **Objetivo:** Definir la modalidad de juego (mismo dispositivo presencial vs remoto).
-* **Detalles del Diseño Visual:**
-  * **Encabezado:** Titular *"¿Dónde van a jugar hoy?"* en `Sora` Bold.
-  * **Tarjetas de Selección M3 Expressive:**
-    * Opción 1: *"En Persona (Mismo Dispositivo)"* — Subtexto explicativo de experiencia hotseat.
-    * Opción 2: *"Modo a Distancia / Remoto"* — Subtexto de juego sincrónico sin contacto físico.
-  * **Estados de Selección:** Transición tónica con *color morphing* hacia fondo Rosa Neón Primario y texto en negro profundo `#18040C`.
-  * **Navegación:** Botón delineado `"Atrás"` + Botón elíptico Rosa Neón `"Siguiente"`.
-* **Componentes Compose Asociados:** `SetupWizardScreen.kt` -> Paso 2 (`ExpressiveOptionCard`).
+* **Stitch Title:** `Location Setup`
+* **Objective:** Define game playability mode (single-device pass-and-play vs long-distance remote play).
+* **Visual Design Details:**
+  * **Header:** Title *"¿Dónde van a jugar hoy?"* in `Sora` Bold.
+  * **M3 Expressive Selection Cards:**
+    * Option 1: *"En Persona (Mismo Dispositivo)"* — Explanatory subtext for hotseat pass-and-play experience.
+    * Option 2: *"Modo a Distancia / Remoto"* — Subtext for remote play excluding physical contact requirements.
+  * **Selection States:** Color morphing transition into vibrant Neon Pink background with `#18040C` high-contrast bold text.
+  * **Navigation:** Outlined `"Atrás"` (Back) button + Primary Neon Pink `"Siguiente"` pill button.
+* **Associated Compose Components:** `SetupWizardScreen.kt` -> Step 2 (`ExpressiveOptionCard`).
 
 ---
 
-### Pantalla 3: Duración y Modo de Juego (`SetupStep3DurationScreen`)
+### Screen 3: Duration & Game Mode Setup (`SetupStep3DurationScreen`)
 
 * **Stitch Resource Name:** `projects/5643953407614369854/screens/1424f2f944304d31ba15b53e9f946c9b`
-* **Título en Stitch:** `Duration Setup`
-* **Objetivo:** Elegir la longitud de la partida (Express, Estándar o Maratón).
-* **Detalles del Diseño Visual:**
-  * **Encabezado:** Titular *"¿Cuánto tiempo tienen?"*.
-  * **Tres Tarjetas Asimétricas de Selección:**
-    1. *Modo Express (10 cartas)*: Subtexto *"Partida rápida e intensa (15-30 min)"*.
-    2. *Modo Estándar (20 cartas)*: Subtexto *"La experiencia completa equilibrada (45-60 min)"*.
-    3. *Modo Maratón (Sin límite)*: Subtexto *"Juego continuo hasta que uno ceda (90+ min)"*.
-  * **Estilo Visual:** Esquinas redondeadas asimétricas `32px` / `12px` con compresión al tacto (`scale 0.98f`).
-* **Componentes Compose Asociados:** `SetupWizardScreen.kt` -> Paso 3.
+* **Stitch Title:** `Duration Setup`
+* **Objective:** Choose session length and game mode (Express, Standard, or Marathon).
+* **Visual Design Details:**
+  * **Header:** Title *"¿Cuánto tiempo tienen?"*.
+  * **Three Asymmetric Selection Cards:**
+    1. *Modo Express (10 cartas)*: Subtext *"Partida rápida e intensa (15-30 min)"*.
+    2. *Modo Estándar (20 cartas)*: Subtext *"La experiencia completa equilibrada (45-60 min)"*.
+    3. *Modo Maratón (Sin límite)*: Subtext *"Juego continuo hasta que uno ceda (90+ min)"*.
+  * **Visual Style:** Asymmetric corner radii `32px` / `12px` with tactile spring press scale (`0.98f`).
+* **Associated Compose Components:** `SetupWizardScreen.kt` -> Step 3.
 
 ---
 
-### Pantalla 4: Ambiente y Vibe (`SetupStep4MoodScreen`)
+### Screen 4: Mood & Vibe Setup (`SetupStep4MoodScreen`)
 
 * **Stitch Resource Name:** `projects/5643953407614369854/screens/875a930a3c004834b16ab89eb216722c`
-* **Título en Stitch:** `Mood Setup`
-* **Objetivo:** Filtrar el tipo de retos según el tono emocional deseado para la sesión.
-* **Detalles del Diseño Visual:**
-  * **Encabezado & Subtítulo:** Titular *"¿Qué ambiente prefieren hoy?"* con guía *"Seleccionen el ambiente que mejor se adapte a su deseo actual"*.
-  * **Cuatro Opciones de Ambiente:**
-    1. *Romántico y Sensual* (Masajes, miradas, seducción suave).
-    2. *Divertido y Coqueto* (Risas, caricias, verdad o reto ligero).
-    3. *Intenso y Atrevido* (Dominación, mordiscos, dinámicas de poder).
-    4. *Mixto / Sorpresa* (Combinación equilibrada de todos los ambientes).
-  * **Feedback Táctil:** Tarjetas no seleccionadas en `surfaceContainerLow` (`#1B0A20`) y seleccionadas en Rosa Neón radiante.
-* **Componentes Compose Asociados:** `SetupWizardScreen.kt` -> Paso 4.
+* **Stitch Title:** `Mood Setup`
+* **Objective:** Filter action cards according to the desired emotional tone for the session.
+* **Visual Design Details:**
+  * **Header & Subtitle:** Title *"¿Qué ambiente prefieren hoy?"* with guiding subtitle *"Seleccionen el ambiente que mejor se adapte a su deseo actual"*.
+  * **Four Mood Selection Cards:**
+    1. *Romántico y Sensual* (Massages, eye contact, gentle touch).
+    2. *Divertido y Coqueto* (Laughter, playful dares, dancing).
+    3. *Intenso y Atrevido* (Power dynamics, bites, deep erotic dares).
+    4. *Mixto / Sorpresa* (Balanced combination of all moods).
+  * **Tactile Feedback:** Unselected cards in `surfaceContainerLow` (`#1B0A20`), selected cards morphing to radiant Neon Pink.
+* **Associated Compose Components:** `SetupWizardScreen.kt` -> Step 4.
 
 ---
 
-### Pantalla 5: Nivel de Intensidad Máximo (`SetupStep5IntensityScreen`)
+### Screen 5: Maximum Intensity Level Setup (`SetupStep5IntensityScreen`)
 
 * **Stitch Resource Name:** `projects/5643953407614369854/screens/f18059ff32ed4991a98a6b54459abb5e`
-* **Título en Stitch:** `Intensity Level Setup`
-* **Objetivo:** Establecer la cota máxima de intensidad alcanzable durante la partida.
-* **Detalles del Diseño Visual:**
-  * **Encabezado:** Titular *"¿Nivel máximo de castigo?"*.
-  * **Cuatro Niveles de Intensidad:**
-    * *Nivel 1: Juguetón y Sensorial* (Exploración sutil).
-    * *Nivel 2: Dominación y Control* (Dinámicas de poder moderadas).
-    * *Nivel 3: Control y Castidad* (Enfoque en restricción y resistencia).
-    * *Nivel 4: Línea del Tabú* (Exploración profunda de límites).
-  * **Geometría & Animación:** Geometría asimétrica M3 con elevación dinámica de superficie.
-* **Componentes Compose Asociados:** `SetupWizardScreen.kt` -> Paso 5.
+* **Stitch Title:** `Intensity Level Setup`
+* **Objective:** Establish the maximum intensity boundary reachable during gameplay.
+* **Visual Design Details:**
+  * **Header:** Title *"¿Nivel máximo de castigo?"*.
+  * **Four Intensity Levels:**
+    * *Nivel 1: Juguetón y Sensorial* (Soft exploratory play).
+    * *Nivel 2: Dominación y Control* (Moderate power dynamics).
+    * *Nivel 3: Control y Castidad* (Focus on restraint and endurance).
+    * *Nivel 4: Línea del Tabú* (Deep exploration of limits).
+  * **Geometry & Animation:** M3 Asymmetric card geometry with dynamic surface elevation.
+* **Associated Compose Components:** `SetupWizardScreen.kt` -> Step 5.
 
 ---
 
-### Pantalla 6: Límites Duros y Consentimiento (`SetupStep6LimitsScreen`)
+### Screen 6: Hard Limits & Consent Setup (`SetupStep6LimitsScreen`)
 
 * **Stitch Resource Name:** `projects/5643953407614369854/screens/2f604055923e498bae8da34c4e8ab38f`
-* **Título en Stitch:** `Hard Limits & Consent Setup`
-* **Objetivo:** Excluir explícitamente categorías de contenido no deseadas (Consentimiento Activo).
-* **Detalles del Diseño Visual:**
-  * **Encabezado:** Titular *"¿Límites a excluir?"* con subtítulo `(Opcional)`.
-  * **Lista de Exclusión Multiselección M3:**
-    * *Juegos de Temperatura* (Hielo, cera tibia, cambios térmicos).
-    * *Juegos de Impacto* (Azotes ligeros, palmaditas).
-    * *Preguntas Personales* (Confesiones profundas / privacidad).
-  * **Indicador Seleccionado:** Icono Checkmark con borde luminoso y acento Rosa Neón.
-* **Componentes Compose Asociados:** `SetupWizardScreen.kt` -> Paso 6.
+* **Stitch Title:** `Hard Limits & Consent Setup`
+* **Objective:** Explicitly exclude unwanted activity categories (Active Consent Management).
+* **Visual Design Details:**
+  * **Header:** Title *"¿Límites a excluir?"* with subtitle `(Opcional)`.
+  * **M3 Multi-Selection Exclusion List:**
+    * *Juegos de Temperatura* (Ice, warm wax, thermal shifts).
+    * *Juegos de Impacto* (Light spanking, taps).
+    * *Preguntas Personales* (Deep confessions / privacy).
+  * **Selection Indicator:** Checkmark icon with luminous border and Neon Pink accent.
+* **Associated Compose Components:** `SetupWizardScreen.kt` -> Step 6.
 
 ---
 
-### Pantalla 7: Palabra de Seguridad (`SetupStep7SafeWordScreen`)
+### Screen 7: Safe Word Setup (`SetupStep7SafeWordScreen`)
 
 * **Stitch Resource Name:** `projects/5643953407614369854/screens/7be84c8651954f93bb644e02f9ac8992`
-* **Título en Stitch:** `Palabra de Seguridad`
-* **Objetivo:** Confirmar la palabra clave de interrupción inmediata de la partida.
-* **Detalles del Diseño Visual:**
-  * **Encabezado:** Titular *"Palabra de Seguridad"*.
-  * **Insignia de Seguridad Carmesí (`#FF8099`):** Tarjeta destacada de alto contraste: *"La seguridad es lo primero. Establezcan una palabra para pausar o detener el juego en cualquier momento"*. Cumple norma WCAG 2.1 AAA.
-  * **Campo de Entrada:** Etiqueta *"Tu Palabra de Seguridad"* y sugerencia *"Ej. Rojo, Piña, Parar"*.
-  * **Lanzamiento:** Botón elíptico principal en Rosa Neón `"¡Comenzar Partida!"`.
-* **Componentes Compose Asociados:** `SetupWizardScreen.kt` -> Paso 7.
+* **Stitch Title:** `Palabra de Seguridad`
+* **Objective:** Confirm the custom safe word for immediate game pause or termination.
+* **Visual Design Details:**
+  * **Header:** Title *"Palabra de Seguridad"*.
+  * **Crimson Safety Badge (`#FF8099`):** High-contrast notice: *"La seguridad es lo primero. Establezcan una palabra para pausar o detener el juego en cualquier momento"*. Complies with WCAG 2.1 AAA standards.
+  * **Input Field:** Label *"Tu Palabra de Seguridad"* and placeholder *"Ej. Rojo, Piña, Parar"*.
+  * **Launch Action:** Large primary Neon Pink pill button `"¡Comenzar Partida!"`.
+* **Associated Compose Components:** `SetupWizardScreen.kt` -> Step 7.
 
 ---
 
-### Pantalla 8: Pantalla Principal de Juego (`GameScreen`)
+### Screen 8: Main Gameplay Screen (`GameScreen`)
 
 * **Stitch Resource Name:** `projects/5643953407614369854/screens/main_gameplay`
-* **Título en Stitch:** `Gameplay`
-* **Objetivo:** Pantalla principal de presentación de cartas de reto con física 3D.
-* **Detalles del Diseño Visual:**
-  * **HUD Superior de Estado:**
-    * Badge de Seguridad Carmesí: `Palabra de Seguridad: Piña`.
-    * Badge de Tensión Dinámico: `Tensión: Suave` (Verde Esmeralda `#63DF73`), `En Aumento` (Oro Rosa), `Alta Tensión` (Rosa Neón) o `Al Límite` (Carmesí).
-  * **Turno:** Etiqueta en `Space Grotesk`: *"Turno de: Carlos"*.
-  * **Carta Central de Acción M3:** Carta asimétrica de gran tamaño (`32px` / `12px`) con elevación de `16.dp` y animación de giro 3D con resortes elásticos.
-  * **Acciones de Juego:** Botón primario `"Siguiente Turno"` + Botón secundario Carmesí `"¡Me rindo! (No aguanto más)"`.
-* **Componentes Compose Asociados:** `GameScreen.kt`, `FlipCardContainer.kt`, `TensionProgressBar.kt`.
+* **Stitch Title:** `Gameplay`
+* **Objective:** Core gameplay screen presenting interactive 3D challenge cards.
+* **Visual Design Details:**
+  * **Top Status HUD:**
+    * Crimson Safe Word Badge: `Palabra de Seguridad: Piña`.
+    * Escalating Tension Badge: `Tensión: Suave` (Emerald Green `#63DF73`), `En Aumento` (Rose Gold), `Alta Tensión` (Neon Pink), or `Al Límite` (Crimson).
+  * **Turn Label:** Styled in `Space Grotesk`: *"Turno de: Carlos"*.
+  * **Central M3 Action Card:** Large asymmetric card (`32px` / `12px`) with `16.dp` elevation and 3D spring flip physics.
+  * **Game Actions:** Primary button `"Siguiente Turno"` + Secondary Crimson button `"¡Me rindo! (No aguanto más)"`.
+* **Associated Compose Components:** `GameScreen.kt`, `FlipCardContainer.kt`, `TensionProgressBar.kt`.
 
 ---
 
-### Pantalla 9: Selección de Consecuencia / Elección del Ganador (`WinnerChoiceScreen`)
+### Screen 9: Winner Choice & Consequence Selection (`WinnerChoiceScreen`)
 
 * **Stitch Resource Name:** `projects/5643953407614369854/screens/ee685930e04f4bdb9a5993e40db72b61`
-* **Título en Stitch:** `¡Juego Terminado!`
-* **Objetivo:** Elección de premio o castigo tras finalizar la partida o rendición.
-* **Detalles del Diseño Visual:**
-  * **Encabezado Festivo:** Titular *"¡Juego Terminado!"* y *"¡Ana Gana!"* (o *"¡Completaron el juego juntos!"* en Verde Esmeralda `#63DF73` en caso de victoria compartida).
-  * **Dos Botones Expresivos de Elección:**
-    1. Botón elíptico Rosa Neón Primario: `"Recibir Premio"`.
-    2. Botón delineado Carmesí: `"Aplicar Castigo"`.
-* **Componentes Compose Asociados:** `EndGameScreen.kt` -> `WinnerChoiceScreen`.
+* **Stitch Title:** `¡Juego Terminado!`
+* **Objective:** Choose reward or punishment after game completion or surrender.
+* **Visual Design Details:**
+  * **Celebratory Header:** Title *"¡Juego Terminado!"* and *"¡Ana Gana!"* (or *"¡Completaron el juego juntos!"* in Emerald Green `#63DF73` for shared victory).
+  * **Two Expressive Choice Buttons:**
+    1. Primary Neon Pink pill button: `"Recibir Premio"`.
+    2. Outlined Crimson button: `"Aplicar Castigo"`.
+* **Associated Compose Components:** `EndGameScreen.kt` -> `WinnerChoiceScreen`.
 
 ---
 
-### Pantalla 10: Resolución Final y Estadísticas (`ResolutionScreen`)
+### Screen 10: Final Resolution & Session Statistics (`ResolutionScreen`)
 
 * **Stitch Resource Name:** `projects/5643953407614369854/screens/9deb0aa7273d48508f16ce5cd607e3b3`
-* **Título en Stitch:** `Premio para Ana`
-* **Objetivo:** Desglose del premio/castigo seleccionado y panel de estadísticas de la sesión.
-* **Detalles del Diseño Visual:**
-  * **Tarjeta de Consecuencia M3:** Carta asimétrica interactiva. Para premios utiliza `tertiaryContainer` Verde Esmeralda (`#21A643`) y para castigos `errorContainer` Carmesí (`#2D080D`), con la etiqueta *"Toca para ver instrucciones completas"*.
-  * **Panel de Estadísticas de Sesión:** Contenedor `surfaceContainerHigh` (`#342438`) que muestra:
-    * *Cartas Jugadas:* Total acumulado en la sesión.
-    * *Tiempo Juntos:* Duración en formato `MMm SSs`.
-  * **Acción Final:** Botón elíptico Rosa Neón `"Jugar de Nuevo"`.
-* **Componentes Compose Asociados:** `EndGameScreen.kt` -> `ResolutionScreen`.
+* **Stitch Title:** `Premio para Ana`
+* **Objective:** Display selected consequence details and session summary statistics.
+* **Visual Design Details:**
+  * **M3 Consequence Card:** Interactive asymmetric card. Uses Emerald Green `tertiaryContainer` (`#21A643`) for rewards and Crimson `errorContainer` (`#2D080D`) for punishments, with label *"Toca para ver instrucciones completas"*.
+  * **Session Statistics Panel:** Tonal container `surfaceContainerHigh` (`#342438`) displaying:
+    * *Cards Played:* Total turns completed in the session.
+    * *Time Together:* Session duration formatted as `MMm SSs`.
+  * **Final Action:** Primary Neon Pink pill button `"Jugar de Nuevo"`.
+* **Associated Compose Components:** `EndGameScreen.kt` -> `ResolutionScreen`.
 
 ---
 
-## 🔍 Resumen de Mapeo de Archivos en el Código
+## 🔍 Code File Mapping Summary
 
-| Pantalla | Archivo Kotlin en el Proyecto |
+| Screen | Kotlin Source File |
 |---|---|
-| 1 a 7 (Wizard Config) | [SetupWizardScreen.kt](file:///Users/jesusdmedinac/proyectos/Sex%20Play%20Project/Sex%20Play/shared/src/commonMain/kotlin/com/jesusdmedinac/sexplay/presentation/ui/SetupWizardScreen.kt) |
+| 1 to 7 (Setup Wizard) | [SetupWizardScreen.kt](file:///Users/jesusdmedinac/proyectos/Sex%20Play%20Project/Sex%20Play/shared/src/commonMain/kotlin/com/jesusdmedinac/sexplay/presentation/ui/SetupWizardScreen.kt) |
 | 8 (Gameplay) | [GameScreen.kt](file:///Users/jesusdmedinac/proyectos/Sex%20Play%20Project/Sex%20Play/shared/src/commonMain/kotlin/com/jesusdmedinac/sexplay/presentation/ui/GameScreen.kt) |
-| 9 y 10 (Resolución) | [EndGameScreen.kt](file:///Users/jesusdmedinac/proyectos/Sex%20Play%20Project/Sex%20Play/shared/src/commonMain/kotlin/com/jesusdmedinac/sexplay/presentation/ui/EndGameScreen.kt) |
-| Sistema de Tema | [SexPlayTheme.kt](file:///Users/jesusdmedinac/proyectos/Sex%20Play%20Project/Sex%20Play/shared/src/commonMain/kotlin/com/jesusdmedinac/sexplay/presentation/theme/SexPlayTheme.kt) |
-| Barra de Tensión | [TensionProgressBar.kt](file:///Users/jesusdmedinac/proyectos/Sex%20Play%20Project/Sex%20Play/shared/src/commonMain/kotlin/com/jesusdmedinac/sexplay/presentation/ui/components/TensionProgressBar.kt) |
-| Tarjeta 3D Táctil | [FlipCardContainer.kt](file:///Users/jesusdmedinac/proyectos/Sex%20Play%20Project/Sex%20Play/shared/src/commonMain/kotlin/com/jesusdmedinac/sexplay/presentation/ui/components/FlipCardContainer.kt) |
+| 9 and 10 (Resolution) | [EndGameScreen.kt](file:///Users/jesusdmedinac/proyectos/Sex%20Play%20Project/Sex%20Play/shared/src/commonMain/kotlin/com/jesusdmedinac/sexplay/presentation/ui/EndGameScreen.kt) |
+| Theme System | [SexPlayTheme.kt](file:///Users/jesusdmedinac/proyectos/Sex%20Play%20Project/Sex%20Play/shared/src/commonMain/kotlin/com/jesusdmedinac/sexplay/presentation/theme/SexPlayTheme.kt) |
+| Tension Tracker | [TensionProgressBar.kt](file:///Users/jesusdmedinac/proyectos/Sex%20Play%20Project/Sex%20Play/shared/src/commonMain/kotlin/com/jesusdmedinac/sexplay/presentation/ui/components/TensionProgressBar.kt) |
+| 3D Flip Card | [FlipCardContainer.kt](file:///Users/jesusdmedinac/proyectos/Sex%20Play%20Project/Sex%20Play/shared/src/commonMain/kotlin/com/jesusdmedinac/sexplay/presentation/ui/components/FlipCardContainer.kt) |
