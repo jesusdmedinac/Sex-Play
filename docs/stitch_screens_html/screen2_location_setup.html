@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ubicación - Eros &amp; Ember</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Sora:wght@600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#f4dbf5",
+                    "secondary-fixed": "#ffddb4",
+                    "on-secondary-fixed": "#291800",
+                    "inverse-surface": "#f4dbf5",
+                    "tertiary-fixed-dim": "#63df73",
+                    "on-secondary": "#452b00",
+                    "on-primary": "#18040C",
+                    "secondary-fixed-dim": "#ffb954",
+                    "error-crimson": "#FF8099",
+                    "on-error-container": "#ffdad6",
+                    "on-background": "#f4dbf5",
+                    "surface-container": "#25102A",
+                    "surface-highest": "#421C4D",
+                    "outline": "#a8898e",
+                    "surface-lowest": "#110414",
+                    "surface-low": "#1B0A20",
+                    "outline-variant": "#594045",
+                    "primary-fixed-dim": "#ffb1c2",
+                    "tertiary-container": "#21a643",
+                    "surface-container-lowest": "#17091b",
+                    "surface-dim": "#1c0e20",
+                    "inverse-on-surface": "#3b2b3f",
+                    "surface-tint": "#ffb1c2",
+                    "on-tertiary-fixed": "#002106",
+                    "secondary": "#ffb954",
+                    "primary-fixed": "#ffd9df",
+                    "inverse-primary": "#b80f55",
+                    "surface-container-highest": "#402f43",
+                    "on-primary-fixed": "#3f0018",
+                    "on-primary-fixed-variant": "#8f003f",
+                    "on-tertiary": "#00390f",
+                    "on-secondary-fixed-variant": "#633f00",
+                    "surface": "#1c0e20",
+                    "primary": "#ffb1c2",
+                    "on-tertiary-container": "#00320c",
+                    "tertiary-fixed": "#80fc8c",
+                    "surface-bright": "#443348",
+                    "on-surface-variant": "#e1bec4",
+                    "background": "#1c0e20",
+                    "surface-container-low": "#251629",
+                    "error-container": "#93000a",
+                    "surface-container-high": "#342438",
+                    "surface-variant": "#402f43",
+                    "secondary-container": "#c3841b",
+                    "on-primary-container": "#590025",
+                    "on-tertiary-fixed-variant": "#00531a",
+                    "on-error": "#690005",
+                    "surface-high": "#33163B",
+                    "on-secondary-container": "#3c2500",
+                    "tertiary": "#63df73",
+                    "primary-container": "#fd4e87",
+                    "error": "#ffb4ab"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "margin-mobile": "20px",
+                    "md": "24px",
+                    "lg": "48px",
+                    "margin-desktop": "120px",
+                    "base": "8px",
+                    "gutter": "16px",
+                    "xl": "64px",
+                    "sm": "12px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": [
+                            "Sora"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "Sora"
+                    ],
+                    "label-md": [
+                            "Space Grotesk"
+                    ],
+                    "headline-lg": [
+                            "Sora"
+                    ],
+                    "label-lg": [
+                            "Space Grotesk"
+                    ],
+                    "title-md": [
+                            "Sora"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "36px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "label-md": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-lg": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "title-md": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        /* Asymmetric Card Radii */
+        .card-asymmetric {
+            border-radius: 32px 12px 32px 12px;
+        }
+        
+        /* Interactive selection morph */
+        .selection-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .selection-card.selected {
+            background-color: theme('colors.primary-container');
+            color: theme('colors.on-primary-container');
+            box-shadow: inset 0 0 0 1px theme('colors.primary'), 0 8px 32px -8px rgba(253, 78, 135, 0.3);
+            transform: scale(0.98);
+        }
+        
+        .selection-card.selected .material-symbols-outlined {
+            color: theme('colors.on-primary-container');
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        .selection-card.selected .subtext {
+            color: theme('colors.on-primary-container');
+            opacity: 0.8;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 px-margin-mobile flex items-center justify-between h-16 bg-surface dark:bg-surface shadow-sm">
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-150 p-2 -ml-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-container focus:bg-surface-low">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<div class="font-display-lg text-headline-lg-mobile text-primary tracking-tighter">Eros &amp; Ember</div>
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-150 p-2 -mr-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-container focus:bg-surface-low">
+<span class="material-symbols-outlined text-3xl">favorite</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col px-margin-mobile pt-24 pb-32 max-w-lg mx-auto w-full">
+<!-- Typography Anchor -->
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary-container mb-lg text-center mt-md px-4 leading-tight drop-shadow-md">
+            ¿Dónde van a jugar hoy?
+        </h1>
+<!-- Selection Cards (Bento/Asymmetric Style) -->
+<div class="flex flex-col gap-md">
+<!-- Card 1 -->
+<button class="selection-card card-asymmetric bg-surface-container-high border border-outline-variant p-md flex flex-col items-center justify-center gap-xs relative overflow-hidden group hover:bg-surface-highest focus:outline-none focus:ring-2 focus:ring-primary-container" id="card-local" onclick="selectCard('local')">
+<div class="absolute inset-0 bg-gradient-to-br from-primary-container/0 to-primary-container/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-[48px] text-primary mb-2 transition-colors">smartphone</span>
+<span class="font-title-md text-title-md text-on-surface">En Persona</span>
+<span class="subtext font-body-md text-body-md text-on-surface-variant">(Mismo Dispositivo)</span>
+</button>
+<!-- Card 2 -->
+<button class="selection-card card-asymmetric bg-surface-container-high border border-outline-variant p-md flex flex-col items-center justify-center gap-xs relative overflow-hidden group hover:bg-surface-highest focus:outline-none focus:ring-2 focus:ring-primary-container" id="card-remote" onclick="selectCard('remote')">
+<div class="absolute inset-0 bg-gradient-to-br from-primary-container/0 to-primary-container/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-[48px] text-primary mb-2 transition-colors">wifi</span>
+<span class="font-title-md text-title-md text-on-surface">Modo a Distancia / Remoto</span>
+<span class="subtext font-body-md text-body-md text-on-surface-variant text-center">(Sin contacto presencial)</span>
+</button>
+</div>
+<div class="flex-grow"></div> <!-- Spacer for bottom navigation alignment -->
+</main>
+<!-- Contextual Action Bar (Replaces bottom nav for linear flow) -->
+<div class="fixed bottom-0 w-full bg-surface-container/90 backdrop-blur-xl border-t border-surface-container-highest px-margin-mobile py-4 z-40 pb-safe">
+<div class="max-w-lg mx-auto flex items-center justify-between gap-4">
+<button class="font-label-lg text-label-lg px-6 py-3 rounded-full border-2 border-outline-variant text-on-surface-variant hover:bg-surface-low hover:text-on-surface transition-colors focus:outline-none focus:ring-2 focus:ring-outline-variant active:scale-95 duration-200">
+                Atrás
+            </button>
+<button class="font-label-lg text-label-lg px-8 py-3 rounded-full bg-surface-variant text-on-surface-variant opacity-50 cursor-not-allowed transition-all duration-300 focus:outline-none flex-grow" disabled="" id="btn-next">
+                Siguiente
+            </button>
+</div>
+</div>
+<!-- Script for Selection Logic -->
+<script>
+        function selectCard(cardId) {
+            // Reset both cards
+            document.getElementById('card-local').classList.remove('selected');
+            document.getElementById('card-remote').classList.remove('selected');
+            
+            // Select the clicked card
+            document.getElementById('card-' + cardId).classList.add('selected');
+            
+            // Enable the 'Siguiente' button
+            const nextBtn = document.getElementById('btn-next');
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('bg-surface-variant', 'text-on-surface-variant', 'opacity-50', 'cursor-not-allowed');
+            nextBtn.classList.add('bg-primary-container', 'text-on-primary-container', 'hover:bg-primary', 'active:scale-95', 'shadow-lg', 'shadow-primary-container/30');
+            
+            // Haptic feedback simulation (if supported)
+            if (window.navigator && window.navigator.vibrate) {
+                window.navigator.vibrate(50);
+            }
+        }
+    </script>
+</body></html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Palabra de Seguridad - Eros &amp; Ember</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            background: '#16081A',
+            surface: '#251629',
+            primary: '#EC407A',
+            'primary-light': '#FF8099',
+            text: '#FDF7FA',
+            'text-muted': '#BBA9BC',
+            border: '#443348',
+          },
+          fontFamily: {
+            sans: ['Sora', 'sans-serif'],
+          },
+          borderRadius: {
+            'xl': '1rem',
+            '2xl': '1.5rem',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-styles">
+    body {
+      background-color: #16081A;
+      color: #FDF7FA;
+      font-family: 'Sora', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Neon glow effect for primary buttons */
+    .glow-primary {
+      box-shadow: 0 0 15px rgba(236, 64, 122, 0.4);
+    }
+    
+    /* Custom input styling to match design system */
+    .custom-input {
+      background-color: transparent;
+      border: 1px solid #443348;
+      color: #FDF7FA;
+    }
+    .custom-input:focus {
+      border-color: #EC407A;
+      box-shadow: 0 0 0 1px #EC407A;
+      outline: none;
+    }
+  </style>
+</head>
+<body class="antialiased">
+<!-- BEGIN: MainContent -->
+<main class="flex-grow flex flex-col px-6 pt-12 pb-8 relative">
+<!-- Top Header Title -->
+<header class="text-center mb-8 pt-6">
+<h1 class="text-3xl font-extrabold text-primary mb-2">Palabra de Seguridad</h1>
+</header>
+<!-- Safety Notice Card -->
+<section class="bg-surface border border-border rounded-2xl p-6 mb-8 relative overflow-hidden">
+<!-- Decorative subtle accent -->
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-light"></div>
+<div class="flex items-start gap-4">
+<div class="text-primary-light mt-1">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+</svg>
+</div>
+<div>
+<h2 class="text-lg font-bold text-primary-light mb-2">La seguridad es lo primero</h2>
+<p class="text-sm text-text-muted leading-relaxed">
+            Establezcan una palabra para pausar o detener el juego en cualquier momento. El consentimiento es clave para una experiencia placentera.
+          </p>
+</div>
+</div>
+</section>
+<!-- Input Area -->
+<section class="mb-auto">
+<div class="bg-surface rounded-2xl p-6 border border-border">
+<div class="relative mt-2">
+<label class="absolute -top-3 left-3 bg-surface px-2 text-xs font-semibold text-primary uppercase tracking-wider" for="safeword">Tu Palabra de Seguridad</label>
+<input class="custom-input block w-full rounded-xl py-4 px-4 text-base placeholder-text-muted/50 transition-colors duration-200" id="safeword" name="safeword" placeholder="Ej. Rojo, Piña, Parar" type="text"/>
+</div>
+</div>
+</section>
+<!-- Bottom Actions -->
+<footer class="mt-12 flex gap-4 w-full">
+<button class="px-8 py-4 rounded-full border border-border text-text font-semibold tracking-wide hover:bg-surface-bright transition-colors">
+        ATRÁS
+      </button>
+<button class="flex-1 bg-primary text-background font-bold py-4 px-6 rounded-full tracking-wide glow-primary hover:bg-opacity-90 transition-all active:scale-95 text-center">
+        ¡COMENZAR PARTIDA!
+      </button>
+</footer>
+</main>
+<!-- END: MainContent -->
+</body></html>

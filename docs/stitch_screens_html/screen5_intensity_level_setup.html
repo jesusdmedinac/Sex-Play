@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Eros &amp; Ember - ¿Nivel máximo de castigo?</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#291800",
+                        "on-tertiary-fixed-variant": "#00531a",
+                        "error": "#ffb4ab",
+                        "on-surface": "#f4dbf5",
+                        "surface-container-lowest": "#17091b",
+                        "secondary-fixed": "#ffddb4",
+                        "on-error": "#690005",
+                        "background": "#1c0e20",
+                        "secondary": "#ffb954",
+                        "on-primary": "#18040C",
+                        "surface-container": "#25102A",
+                        "tertiary-fixed-dim": "#63df73",
+                        "tertiary-container": "#21a643",
+                        "outline-variant": "#594045",
+                        "on-secondary-container": "#3c2500",
+                        "on-background": "#f4dbf5",
+                        "inverse-primary": "#b80f55",
+                        "inverse-surface": "#f4dbf5",
+                        "surface-variant": "#402f43",
+                        "secondary-container": "#c3841b",
+                        "surface-low": "#1B0A20",
+                        "error-crimson": "#FF8099",
+                        "on-primary-container": "#590025",
+                        "inverse-on-surface": "#3b2b3f",
+                        "surface-bright": "#443348",
+                        "outline": "#a8898e",
+                        "surface-highest": "#421C4D",
+                        "surface-dim": "#1c0e20",
+                        "surface-container-low": "#251629",
+                        "tertiary-fixed": "#80fc8c",
+                        "surface-high": "#33163B",
+                        "surface-container-high": "#342438",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#ffd9df",
+                        "on-primary-fixed": "#3f0018",
+                        "primary-fixed-dim": "#ffb1c2",
+                        "error-container": "#93000a",
+                        "on-secondary": "#452b00",
+                        "surface-lowest": "#110414",
+                        "on-surface-variant": "#e1bec4",
+                        "tertiary": "#63df73",
+                        "primary-container": "#fd4e87",
+                        "primary": "#ffb1c2",
+                        "secondary-fixed-dim": "#ffb954",
+                        "on-tertiary-container": "#00320c",
+                        "surface": "#1c0e20",
+                        "on-secondary-fixed-variant": "#633f00",
+                        "surface-container-highest": "#402f43",
+                        "on-tertiary": "#00390f",
+                        "on-primary-fixed-variant": "#8f003f",
+                        "surface-tint": "#ffb1c2",
+                        "on-tertiary-fixed": "#002106"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "lg": "48px",
+                        "gutter": "16px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "base": "8px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "120px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Space Grotesk"],
+                        "headline-lg": ["Sora"],
+                        "display-lg": ["Sora"],
+                        "title-md": ["Sora"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Space Grotesk"],
+                        "headline-lg-mobile": ["Sora"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #16081A; /* Deep Plum background as requested */
+        }
+        
+        /* Custom Asymmetric Border Radius for Cards */
+        .card-asymmetric {
+            border-radius: 32px 12px 32px 12px;
+        }
+
+        /* Hide Nav Bars as this is a linear/transactional setup screen */
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface min-h-screen flex flex-col relative pb-safe">
+<!-- Top App Bar (Modified to fit setup screen context, keeping brand but acting more as a simple header) -->
+<header class="fixed top-0 w-full z-50 px-margin-mobile flex items-center justify-between h-16 bg-surface-dim shadow-sm">
+<div class="flex-1 flex justify-start">
+<!-- Setup screens often hide the hamburger menu to keep focus -->
+</div>
+<div class="flex-1 flex justify-center">
+<span class="font-display-lg text-headline-lg-mobile text-primary tracking-tighter">Eros &amp; Ember</span>
+</div>
+<div class="flex-1 flex justify-end">
+<!-- Setup screens often hide trailing actions to keep focus -->
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 pt-24 px-margin-mobile md:px-margin-desktop max-w-4xl mx-auto w-full flex flex-col pb-32">
+<!-- Header Section -->
+<div class="mb-lg text-center md:text-left mt-8">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface mb-base">¿Nivel máximo de castigo?</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Establece los límites para la experiencia. Puedes cambiar esto más tarde en la configuración.</p>
+</div>
+<!-- Selection Cards (Bento/Asymmetric Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md flex-1">
+<!-- Level 1: Juguetón y Sensorial -->
+<button class="card-asymmetric group relative overflow-hidden bg-surface-container-low border border-surface-container-high transition-all duration-300 ease-in-out hover:bg-surface-container hover:shadow-xl text-left flex flex-col justify-between p-6 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-primary-container focus:text-on-primary-container">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+<div class="absolute inset-0 border border-transparent rounded-[inherit] transition-colors duration-300 group-focus:border-primary/50"></div>
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-primary group-focus:text-on-primary-container" style="font-variation-settings: 'FILL' 1; font-size: 32px;">clock_loader_40</span>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center group-focus:border-on-primary-container group-focus:bg-on-primary-container">
+<span class="material-symbols-outlined text-[14px] text-transparent group-focus:text-primary-container" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div>
+<h2 class="font-title-md text-title-md mb-2 group-focus:text-on-primary-container">Juguetón y Sensorial</h2>
+<p class="font-body-md text-body-md text-on-surface-variant group-focus:text-on-primary-container/80">Exploración suave, enfocado en el tacto, vendajes ligeros y burlas sin dolor real.</p>
+</div>
+</button>
+<!-- Level 2: Dominación y Control -->
+<button class="card-asymmetric group relative overflow-hidden bg-surface-container-low border border-surface-container-high transition-all duration-300 ease-in-out hover:bg-surface-container hover:shadow-xl text-left flex flex-col justify-between p-6 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-primary-container focus:text-on-primary-container">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+<div class="absolute inset-0 border border-transparent rounded-[inherit] transition-colors duration-300 group-focus:border-primary/50"></div>
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-primary group-focus:text-on-primary-container" style="font-variation-settings: 'FILL' 1; font-size: 32px;">link</span>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center group-focus:border-on-primary-container group-focus:bg-on-primary-container">
+<span class="material-symbols-outlined text-[14px] text-transparent group-focus:text-primary-container" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div>
+<h2 class="font-title-md text-title-md mb-2 group-focus:text-on-primary-container">Dominación y Control</h2>
+<p class="font-body-md text-body-md text-on-surface-variant group-focus:text-on-primary-container/80">Dinámicas de poder más intensas. Castigos moderados, órdenes estrictas y sumisión activa.</p>
+</div>
+</button>
+<!-- Level 3: Control y Castidad -->
+<button class="card-asymmetric group relative overflow-hidden bg-surface-container-low border border-surface-container-high transition-all duration-300 ease-in-out hover:bg-surface-container hover:shadow-xl text-left flex flex-col justify-between p-6 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-primary-container focus:text-on-primary-container">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+<div class="absolute inset-0 border border-transparent rounded-[inherit] transition-colors duration-300 group-focus:border-primary/50"></div>
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-primary group-focus:text-on-primary-container" style="font-variation-settings: 'FILL' 1; font-size: 32px;">lock</span>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center group-focus:border-on-primary-container group-focus:bg-on-primary-container">
+<span class="material-symbols-outlined text-[14px] text-transparent group-focus:text-primary-container" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div>
+<h2 class="font-title-md text-title-md mb-2 group-focus:text-on-primary-container">Control y Castidad</h2>
+<p class="font-body-md text-body-md text-on-surface-variant group-focus:text-on-primary-container/80">Enfocado en la restricción física y sexual. Negación del placer y control absoluto del ritmo.</p>
+</div>
+</button>
+<!-- Level 4: Línea del Tabú -->
+<button class="card-asymmetric group relative overflow-hidden bg-surface-container-low border border-surface-container-high transition-all duration-300 ease-in-out hover:bg-surface-container hover:shadow-xl text-left flex flex-col justify-between p-6 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-primary-container focus:text-on-primary-container">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+<div class="absolute inset-0 border border-transparent rounded-[inherit] transition-colors duration-300 group-focus:border-primary/50"></div>
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-primary group-focus:text-on-primary-container" style="font-variation-settings: 'FILL' 1; font-size: 32px;">warning</span>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center group-focus:border-on-primary-container group-focus:bg-on-primary-container">
+<span class="material-symbols-outlined text-[14px] text-transparent group-focus:text-primary-container" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div>
+<h2 class="font-title-md text-title-md mb-2 group-focus:text-on-primary-container">Línea del Tabú</h2>
+<p class="font-body-md text-body-md text-on-surface-variant group-focus:text-on-primary-container/80">Exploración profunda de límites. Castigos severos (consensuados) y escenarios extremos. Requiere mucha confianza.</p>
+</div>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation Actions (Linear Setup Flow) -->
+<div class="fixed bottom-0 w-full z-50 bg-background/80 backdrop-blur-xl border-t border-surface-container px-margin-mobile py-4 pb-safe flex items-center justify-between gap-4 max-w-4xl left-1/2 -translate-x-1/2">
+<button class="font-label-lg text-label-lg text-primary border border-primary px-8 py-4 rounded-full hover:bg-primary/10 transition-colors flex items-center justify-center min-w-[120px]">
+            Atrás
+        </button>
+<button class="font-label-lg text-label-lg bg-primary-container text-on-primary-container px-8 py-4 rounded-full hover:bg-primary transition-colors flex items-center justify-center flex-1 shadow-[0_0_15px_rgba(253,78,135,0.4)]">
+            Siguiente
+        </button>
+</div>
+<!-- Note: BottomNavBar and NavigationDrawer from components are suppressed as this is a linear "Setup" screen (Transactional/Onboarding intent) per the Semantic Shell Mandate -->
+<script>
+        // Simple script to handle exclusive selection of cards for visual demonstration
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card-asymmetric');
+            
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // Remove focus state from all (handled implicitly by focus but good to enforce visual state if clicking elsewhere)
+                    cards.forEach(c => c.blur());
+                    card.focus();
+                });
+            });
+            
+            // Auto-focus the first one to show the active state
+            if(cards.length > 0) {
+                cards[0].focus();
+            }
+        });
+    </script>
+</body></html>

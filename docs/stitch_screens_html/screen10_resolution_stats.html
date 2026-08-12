@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Eros &amp; Ember - Premio para Ana</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&amp;family=Sora:wght@600;700;800&amp;family=Inter:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#00531a",
+                        "primary-container": "#fd4e87",
+                        "on-secondary": "#452b00",
+                        "surface-container-lowest": "#17091b",
+                        "tertiary-fixed-dim": "#63df73",
+                        "surface": "#1c0e20",
+                        "error-crimson": "#FF8099",
+                        "on-tertiary": "#00390f",
+                        "surface-lowest": "#110414",
+                        "secondary-fixed": "#ffddb4",
+                        "on-primary": "#18040C",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#342438",
+                        "on-error": "#690005",
+                        "surface-bright": "#443348",
+                        "primary": "#ffb1c2",
+                        "on-secondary-container": "#3c2500",
+                        "on-primary-container": "#590025",
+                        "secondary-fixed-dim": "#ffb954",
+                        "tertiary": "#63df73",
+                        "on-background": "#f4dbf5",
+                        "secondary": "#ffb954",
+                        "primary-fixed": "#ffd9df",
+                        "on-secondary-fixed": "#291800",
+                        "outline": "#a8898e",
+                        "on-secondary-fixed-variant": "#633f00",
+                        "on-surface": "#f4dbf5",
+                        "tertiary-fixed": "#80fc8c",
+                        "on-tertiary-container": "#00320c",
+                        "background": "#1c0e20",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#402f43",
+                        "surface-low": "#1B0A20",
+                        "surface-highest": "#421C4D",
+                        "outline-variant": "#594045",
+                        "surface-container-low": "#251629",
+                        "secondary-container": "#c3841b",
+                        "on-tertiary-fixed": "#002106",
+                        "surface-dim": "#1c0e20",
+                        "surface-container": "#291a2d",
+                        "primary-fixed-dim": "#ffb1c2",
+                        "on-surface-variant": "#e1bec4",
+                        "on-primary-fixed": "#3f0018",
+                        "surface-tint": "#ffb1c2",
+                        "inverse-primary": "#b80f55",
+                        "inverse-on-surface": "#3b2b3f",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#8f003f",
+                        "surface-high": "#33163B",
+                        "inverse-surface": "#f4dbf5",
+                        "surface-container-highest": "#402f43",
+                        "tertiary-container": "#21a643"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "card-asym": "32px 12px 32px 12px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "gutter": "16px",
+                        "margin-mobile": "20px",
+                        "lg": "48px",
+                        "md": "24px",
+                        "xl": "64px",
+                        "margin-desktop": "120px",
+                        "safe": "env(safe-area-inset-bottom)"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Space Grotesk", "sans-serif"],
+                        "headline-lg": ["Sora", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "title-md": ["Sora", "sans-serif"],
+                        "headline-lg-mobile": ["Sora", "sans-serif"],
+                        "display-lg": ["Sora", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "label-md": ["Space Grotesk", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glow-neon-pink {
+            box-shadow: 0 0 20px rgba(236, 64, 122, 0.3), inset 0 0 10px rgba(236, 64, 122, 0.1);
+        }
+        .asym-card {
+            border-radius: 32px 12px 32px 12px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#16081A] text-on-surface min-h-screen flex flex-col font-body-md overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- Intent: Transactional Resolution Screen - Navigation suppressed -->
+<main class="flex-1 flex flex-col px-margin-mobile md:px-margin-desktop py-xl md:py-margin-desktop max-w-7xl mx-auto w-full z-10 relative">
+<!-- Header Section -->
+<header class="text-center mb-lg">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary mb-2">Premio para Ana</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">El final es solo el principio...</p>
+</header>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col items-center justify-center space-y-lg max-w-2xl mx-auto w-full">
+<!-- Asymmetric Reward Card -->
+<button class="w-full relative group asym-card bg-surface-container-high border border-outline-variant/30 glow-neon-pink overflow-hidden transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-container p-8 min-h-[300px] flex flex-col items-center justify-center text-center">
+<!-- Inner Glow Overlay -->
+<div class="absolute inset-0 border border-primary/20 rounded-[inherit] pointer-events-none"></div>
+<span class="material-symbols-outlined text-primary-container text-6xl mb-6 opacity-80 group-hover:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">spa</span>
+<h2 class="font-title-md text-title-md text-on-surface mb-4 max-w-[80%]">Masaje con aceites tibios</h2>
+<div class="flex items-center space-x-2 text-primary">
+<span class="material-symbols-outlined text-sm">touch_app</span>
+<p class="font-label-md text-label-md uppercase tracking-wider">Toca para ver instrucciones completas</p>
+</div>
+</button>
+<!-- Session Statistics Panel -->
+<div class="w-full bg-surface-container rounded-2xl p-6 border border-surface-highest">
+<h3 class="font-label-lg text-label-lg text-on-surface-variant mb-6 uppercase tracking-widest text-center">Estadísticas de la Sesión</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col items-center justify-center p-4 bg-surface-low rounded-xl">
+<span class="material-symbols-outlined text-secondary mb-2" style="font-variation-settings: 'FILL' 1;">playing_cards</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">18</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase mt-1">Cartas Jugadas</span>
+</div>
+<div class="flex flex-col items-center justify-center p-4 bg-surface-low rounded-xl">
+<span class="material-symbols-outlined text-tertiary mb-2" style="font-variation-settings: 'FILL' 1;">timer</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">24<span class="text-lg opacity-70">m</span> 12<span class="text-lg opacity-70">s</span></span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase mt-1">Tiempo Juntos</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="mt-xl pb-safe">
+<button class="w-full bg-[#EC407A] text-on-primary-container font-label-lg text-label-lg py-4 px-6 rounded-full uppercase tracking-wider shadow-[0_4px_14px_0_rgba(236,64,122,0.39)] hover:shadow-[0_6px_20px_rgba(236,64,122,0.23)] hover:bg-opacity-90 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#EC407A] focus:ring-offset-[#16081A]">
+                Jugar de Nuevo
+            </button>
+</div>
+</main>
+</body></html>

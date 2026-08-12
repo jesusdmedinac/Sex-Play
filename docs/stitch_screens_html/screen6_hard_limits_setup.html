@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>¿Límites a excluir?</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#ffb954",
+                        "on-surface": "#f4dbf5",
+                        "surface-container": "#291a2d",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#17091b",
+                        "secondary-fixed": "#ffddb4",
+                        "tertiary-fixed": "#80fc8c",
+                        "on-secondary-fixed": "#291800",
+                        "on-secondary": "#452b00",
+                        "inverse-primary": "#b80f55",
+                        "surface-lowest": "#110414",
+                        "on-primary": "#18040C",
+                        "on-secondary-container": "#3c2500",
+                        "on-error": "#690005",
+                        "primary": "#ffb1c2",
+                        "surface-highest": "#421C4D",
+                        "inverse-on-surface": "#3b2b3f",
+                        "surface-dim": "#1c0e20",
+                        "primary-fixed": "#ffd9df",
+                        "outline": "#a8898e",
+                        "surface-container-highest": "#402f43",
+                        "surface-tint": "#ffb1c2",
+                        "surface-container-high": "#342438",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#002106",
+                        "on-tertiary": "#00390f",
+                        "on-background": "#f4dbf5",
+                        "on-tertiary-container": "#00320c",
+                        "on-secondary-fixed-variant": "#633f00",
+                        "primary-fixed-dim": "#ffb1c2",
+                        "surface-container-low": "#251629",
+                        "on-primary-container": "#590025",
+                        "on-surface-variant": "#e1bec4",
+                        "surface-low": "#1B0A20",
+                        "surface-variant": "#402f43",
+                        "on-primary-fixed-variant": "#8f003f",
+                        "error-container": "#93000a",
+                        "secondary-container": "#c3841b",
+                        "surface-high": "#33163B",
+                        "tertiary-container": "#21a643",
+                        "surface-bright": "#443348",
+                        "surface": "#1c0e20",
+                        "inverse-surface": "#f4dbf5",
+                        "error-crimson": "#FF8099",
+                        "tertiary": "#63df73",
+                        "tertiary-fixed-dim": "#63df73",
+                        "secondary-fixed-dim": "#ffb954",
+                        "primary-container": "#fd4e87",
+                        "background": "#1c0e20",
+                        "on-primary-fixed": "#3f0018",
+                        "outline-variant": "#594045",
+                        "on-tertiary-fixed-variant": "#00531a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "xl": "64px",
+                        "sm": "12px",
+                        "margin-desktop": "120px",
+                        "xs": "4px",
+                        "margin-mobile": "20px",
+                        "md": "24px",
+                        "base": "8px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Space Grotesk"],
+                        "label-lg": ["Space Grotesk"],
+                        "body-md": ["Inter"],
+                        "title-md": ["Sora"],
+                        "headline-lg-mobile": ["Sora"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Sora:wght@600;700;800&family=Space+Grotesk:wght@600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .limit-card.selected {
+            background-color: rgba(253, 78, 135, 0.1);
+            border-color: theme('colors.primary-container');
+        }
+        .limit-card.selected .check-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .limit-card .check-icon {
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glow-effect {
+            box-shadow: inset 0 0 0 1px rgba(255, 177, 194, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Header Section -->
+<header class="pt-12 px-margin-mobile pb-6 flex flex-col items-center text-center">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-2">¿Límites a excluir?</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">(Opcional)</p>
+</header>
+<!-- Main Content: Limit Selection Cards -->
+<main class="flex-grow px-margin-mobile flex flex-col gap-sm overflow-y-auto pb-32">
+<!-- Card 1 -->
+<button class="limit-card w-full text-left bg-surface-container-low border border-surface-variant rounded-xl p-6 flex items-center justify-between transition-all duration-300 hover:bg-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary-container glow-effect active:scale-[0.98]">
+<div class="flex flex-col gap-1">
+<span class="font-title-md text-title-md text-on-surface">Juegos de Temperatura</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Hielo, cera, o variaciones térmicas.</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center shrink-0 check-container relative">
+<span class="material-symbols-outlined text-primary-container check-icon absolute" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</button>
+<!-- Card 2 -->
+<button class="limit-card w-full text-left bg-surface-container-low border border-surface-variant rounded-xl p-6 flex items-center justify-between transition-all duration-300 hover:bg-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary-container glow-effect active:scale-[0.98]">
+<div class="flex flex-col gap-1">
+<span class="font-title-md text-title-md text-on-surface">Juegos de Impacto</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Nalgadas, azotes o dolor físico.</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center shrink-0 check-container relative">
+<span class="material-symbols-outlined text-primary-container check-icon absolute" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</button>
+<!-- Card 3 -->
+<button class="limit-card w-full text-left bg-surface-container-low border border-surface-variant rounded-xl p-6 flex items-center justify-between transition-all duration-300 hover:bg-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary-container glow-effect active:scale-[0.98]">
+<div class="flex flex-col gap-1">
+<span class="font-title-md text-title-md text-on-surface">Preguntas Personales</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Temas del pasado o secretos profundos.</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center shrink-0 check-container relative">
+<span class="material-symbols-outlined text-primary-container check-icon absolute" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</button>
+</main>
+<!-- Bottom Action Bar (Transactional Layout) -->
+<div class="fixed bottom-0 left-0 w-full p-margin-mobile bg-gradient-to-t from-background via-background to-transparent z-50">
+<div class="flex items-center gap-md">
+<button class="flex-1 py-4 rounded-full border border-outline text-on-surface font-label-lg text-label-lg uppercase tracking-wider transition-colors hover:bg-surface-container-high active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary">
+                Atrás
+            </button>
+<button class="flex-[2] py-4 rounded-full bg-primary-container text-on-primary-container font-label-lg text-label-lg uppercase tracking-wider shadow-[0_0_20px_rgba(253,78,135,0.3)] transition-transform hover:opacity-90 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary-container">
+                Siguiente
+            </button>
+</div>
+</div>
+<script>
+        document.querySelectorAll('.limit-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('selected');
+                const checkContainer = card.querySelector('.check-container');
+                if (card.classList.contains('selected')) {
+                    checkContainer.classList.remove('border-outline-variant');
+                    checkContainer.classList.add('border-primary-container');
+                } else {
+                    checkContainer.classList.add('border-outline-variant');
+                    checkContainer.classList.remove('border-primary-container');
+                }
+            });
+        });
+    </script>
+</body></html>

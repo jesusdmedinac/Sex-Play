@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>¿Cuánto tiempo tienen? - Eros &amp; Ember</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Sora:wght@600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed": "#ffd9df",
+                        "primary": "#ffb1c2",
+                        "on-tertiary-fixed": "#002106",
+                        "secondary-container": "#c3841b",
+                        "inverse-surface": "#f4dbf5",
+                        "secondary-fixed-dim": "#ffb954",
+                        "primary-fixed-dim": "#ffb1c2",
+                        "surface-container": "#291a2d",
+                        "on-error": "#690005",
+                        "on-surface": "#f4dbf5",
+                        "surface-low": "#1B0A20",
+                        "on-tertiary": "#00390f",
+                        "error-container": "#93000a",
+                        "surface-lowest": "#110414",
+                        "secondary-fixed": "#ffddb4",
+                        "surface-highest": "#421C4D",
+                        "on-tertiary-container": "#00320c",
+                        "inverse-primary": "#b80f55",
+                        "surface-dim": "#1c0e20",
+                        "surface-container-highest": "#402f43",
+                        "inverse-on-surface": "#3b2b3f",
+                        "outline-variant": "#594045",
+                        "on-background": "#f4dbf5",
+                        "surface-container-lowest": "#17091b",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#402f43",
+                        "error-crimson": "#FF8099",
+                        "surface": "#1c0e20",
+                        "on-secondary-fixed-variant": "#633f00",
+                        "on-secondary-fixed": "#291800",
+                        "error": "#ffb4ab",
+                        "on-primary": "#18040C",
+                        "surface-tint": "#ffb1c2",
+                        "surface-high": "#33163B",
+                        "surface-container-low": "#251629",
+                        "surface-bright": "#443348",
+                        "on-primary-fixed-variant": "#8f003f",
+                        "on-tertiary-fixed-variant": "#00531a",
+                        "outline": "#a8898e",
+                        "tertiary-fixed-dim": "#63df73",
+                        "surface-container-high": "#342438",
+                        "on-secondary-container": "#3c2500",
+                        "background": "#1c0e20",
+                        "on-primary-container": "#590025",
+                        "on-surface-variant": "#e1bec4",
+                        "tertiary-fixed": "#80fc8c",
+                        "secondary": "#ffb954",
+                        "on-secondary": "#452b00",
+                        "on-primary-fixed": "#3f0018",
+                        "primary-container": "#fd4e87",
+                        "tertiary": "#63df73",
+                        "tertiary-container": "#21a643"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "asymmetric": "32px 12px 32px 12px"
+                    },
+                    spacing: {
+                        "xs": "4px",
+                        "xl": "64px",
+                        "margin-desktop": "120px",
+                        "margin-mobile": "20px",
+                        "md": "24px",
+                        "gutter": "16px",
+                        "lg": "48px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "safe": "env(safe-area-inset-bottom)"
+                    },
+                    fontFamily: {
+                        "label-md": ["Space Grotesk", "sans-serif"],
+                        "title-md": ["Sora", "sans-serif"],
+                        "headline-lg": ["Sora", "sans-serif"],
+                        "display-lg": ["Sora", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "label-lg": ["Space Grotesk", "sans-serif"],
+                        "headline-lg-mobile": ["Sora", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"]
+                    },
+                    fontSize: {
+                        "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "title-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "700" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "800" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.1em", fontWeight: "700" }],
+                        "headline-lg-mobile": ["28px", { lineHeight: "36px", fontWeight: "700" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .selection-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .selection-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(253, 78, 135, 0.3) 0%, rgba(253, 78, 135, 0) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .selection-card.selected {
+            background-color: rgba(253, 78, 135, 0.15); /* primary-container with opacity */
+            transform: scale(0.98);
+        }
+        
+        .selection-card.selected::before {
+            background: linear-gradient(135deg, #fd4e87 0%, rgba(253, 78, 135, 0.2) 100%);
+            opacity: 1;
+        }
+        
+        .selection-card.selected .card-icon {
+            color: #fd4e87; /* primary-container */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md overflow-x-hidden pt-16 pb-[calc(80px+env(safe-area-inset-bottom))] md:pb-0 md:pt-[120px]">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 px-margin-mobile flex items-center justify-between h-16 bg-surface shadow-sm md:hidden">
+<button aria-label="Menu" class="text-primary hover:opacity-80 transition-opacity p-2 -ml-2">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-display-lg text-headline-lg-mobile text-primary tracking-tighter">Eros &amp; Ember</h1>
+<button aria-label="Favorite" class="text-primary hover:opacity-80 transition-opacity p-2 -mr-2">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</header>
+<!-- Desktop Header -->
+<header class="hidden md:flex fixed top-0 w-full z-50 px-margin-desktop py-md items-center justify-between bg-surface/90 backdrop-blur-md shadow-sm">
+<h1 class="font-display-lg text-headline-lg-mobile text-primary tracking-tighter">Eros &amp; Ember</h1>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</header>
+<main class="flex-grow flex flex-col px-margin-mobile md:px-margin-desktop max-w-[800px] mx-auto w-full relative z-10">
+<div class="mt-lg md:mt-xl mb-lg text-center">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-on-surface mb-xs">¿Cuánto tiempo tienen?</h2>
+<p class="font-body-lg text-on-surface-variant">Selecciona la duración de tu sesión</p>
+</div>
+<div class="flex flex-col gap-gutter flex-grow">
+<!-- Card 1: Express -->
+<button class="selection-card w-full bg-surface-container rounded-asymmetric p-md text-left flex items-center justify-between group hover:bg-surface-container-high focus:outline-none" onclick="selectCard(this)">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined card-icon text-on-surface-variant group-hover:text-primary transition-colors text-[24px]" data-icon="timer">timer</span>
+</div>
+<div>
+<h3 class="font-title-md text-on-surface mb-xs">Modo Express</h3>
+<p class="font-body-md text-on-surface-variant">15-30 min</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="arrow_forward_ios">arrow_forward_ios</span>
+</button>
+<!-- Card 2: Estandar -->
+<button class="selection-card w-full bg-surface-container rounded-asymmetric p-md text-left flex items-center justify-between group hover:bg-surface-container-high focus:outline-none selected" onclick="selectCard(this)">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined card-icon text-primary transition-colors text-[24px]" data-icon="hourglass_top">hourglass_top</span>
+</div>
+<div>
+<h3 class="font-title-md text-on-surface mb-xs">Modo Estandar</h3>
+<p class="font-body-md text-on-surface-variant">45-60 min</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="arrow_forward_ios">arrow_forward_ios</span>
+</button>
+<!-- Card 3: Maraton -->
+<button class="selection-card w-full bg-surface-container rounded-asymmetric p-md text-left flex items-center justify-between group hover:bg-surface-container-high focus:outline-none" onclick="selectCard(this)">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined card-icon text-on-surface-variant group-hover:text-primary transition-colors text-[24px]" data-icon="all_inclusive">all_inclusive</span>
+</div>
+<div>
+<h3 class="font-title-md text-on-surface mb-xs">Modo Maraton</h3>
+<p class="font-body-md text-on-surface-variant">90+ min</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="arrow_forward_ios">arrow_forward_ios</span>
+</button>
+</div>
+<!-- Action Buttons -->
+<div class="mt-xl pb-lg flex flex-col gap-gutter">
+<button class="w-full bg-primary-container text-on-primary-container font-label-lg py-sm px-lg rounded-full hover:bg-primary transition-colors flex items-center justify-center min-h-[48px]">
+                Siguiente
+            </button>
+<button class="w-full border border-outline-variant text-on-surface-variant font-label-lg py-sm px-lg rounded-full hover:bg-surface-container-high transition-colors flex items-center justify-center min-h-[48px]">
+                Atrás
+            </button>
+</div>
+</main>
+<!-- BottomNavBar (Hidden on md as this is a setup flow, but keeping for structural consistency if needed, though strictly it should be suppressed in transactional flows. Leaving out per instructions for transactional/linear screens). -->
+<script>
+        function selectCard(clickedCard) {
+            // Remove 'selected' class and reset icon colors from all cards
+            const cards = document.querySelectorAll('.selection-card');
+            cards.forEach(card => {
+                card.classList.remove('selected');
+                const icon = card.querySelector('.card-icon');
+                if(icon) {
+                    icon.classList.remove('text-primary');
+                    icon.classList.add('text-on-surface-variant');
+                }
+            });
+
+            // Add 'selected' class to the clicked card
+            clickedCard.classList.add('selected');
+            const clickedIcon = clickedCard.querySelector('.card-icon');
+            if(clickedIcon) {
+                clickedIcon.classList.remove('text-on-surface-variant');
+                // The CSS will handle the primary color when selected
+            }
+        }
+    </script>
+</body></html>
