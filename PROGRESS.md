@@ -42,3 +42,6 @@
 
 ## Feature: Marathon Mode Tension Indicator (`docs/features/marathon_tension.feature`)
 - [x] Scenario: Progress bar is hidden in Marathon Mode
+
+## Feature: GitHub Actions Automated Cloudflare Deployment (`docs/features/github_actions_deploy.feature`)
+- [x] Scenario: Continuous deployment on push to main

@@ -24,6 +24,7 @@ import com.jesusdmedinac.sexplay.presentation.ui.SetupStep5IntensityScreen
 import com.jesusdmedinac.sexplay.presentation.ui.SetupStep6LimitsScreen
 import com.jesusdmedinac.sexplay.presentation.ui.SetupStep7SafeWordScreen
 import com.jesusdmedinac.sexplay.presentation.ui.WinnerChoiceScreen
+import kotlin.time.Clock
 
 @Composable
 @Preview
@@ -97,15 +98,15 @@ fun App() {
                         state = currentState,
                         onBack = { viewModel.backToStep6() },
                         onFinish = { safeWord ->
-                            viewModel.finishSetup(safeWord, currentTimeMillis = System.currentTimeMillis())
+                            viewModel.finishSetup(safeWord, currentTimeMillis = Clock.System.now().toEpochMilliseconds())
                         }
                     )
                 }
                 is GameState.Playing -> {
                     GameScreen(
                         state = currentState,
-                        onNextTurn = { viewModel.nextTurn(currentTimeMillis = System.currentTimeMillis()) },
-                        onSurrender = { viewModel.surrender(currentTimeMillis = System.currentTimeMillis()) }
+                        onNextTurn = { viewModel.nextTurn(currentTimeMillis = Clock.System.now().toEpochMilliseconds()) },
+                        onSurrender = { viewModel.surrender(currentTimeMillis = Clock.System.now().toEpochMilliseconds()) }
                     )
                 }
                 is GameState.WinnerChoice -> {
