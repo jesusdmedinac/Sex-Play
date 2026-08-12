@@ -7,7 +7,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.jesusdmedinac.sexplay.domain.model.state.GameState
 import com.jesusdmedinac.sexplay.presentation.ui.components.FlipCardContainer
@@ -38,7 +37,7 @@ fun GameScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "🛡️ Palabra de Seguridad: ",
+                        text = "Palabra de Seguridad: ",
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onErrorContainer
                     )
@@ -87,7 +86,7 @@ fun GameScreen(
 
             TextButton(onClick = { showDetailDialog = true }) {
                 Text(
-                    text = "👁️ Ver explicación detallada",
+                    text = "Ver explicación detallada",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.secondary
                 )
@@ -100,7 +99,7 @@ fun GameScreen(
                 onClick = onNextTurn,
                 modifier = Modifier.fillMaxWidth(0.85f).height(56.dp)
             ) {
-                Text("Siguiente Turno ➔")
+                Text("Siguiente Turno")
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -134,7 +133,7 @@ fun GameScreen(
             },
             confirmButton = {
                 Button(onClick = { showDetailDialog = false }) {
-                    Text("¡Entendido! 👍")
+                    Text("¡Entendido!")
                 }
             }
         )

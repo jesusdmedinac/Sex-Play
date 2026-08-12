@@ -2,6 +2,7 @@ package com.jesusdmedinac.sexplay.presentation.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -9,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.jesusdmedinac.sexplay.domain.model.state.GameState
+import com.jesusdmedinac.sexplay.presentation.theme.ExpressiveAsymmetricCardShape
+import com.jesusdmedinac.sexplay.presentation.theme.ExpressiveButtonShape
 
 private fun formatDuration(seconds: Long): String {
     val mins = seconds / 60
@@ -31,7 +34,7 @@ fun WinnerChoiceScreen(
 
         if (state.isSharedVictory) {
             Text(
-                text = "🎉 ¡Completaron el juego juntos! 🎉",
+                text = "¡Completaron el juego juntos!",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.secondary
             )
@@ -41,7 +44,7 @@ fun WinnerChoiceScreen(
             Text("${state.loserName} no aguantó más.", style = MaterialTheme.typography.bodyLarge)
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "🏆 ¡${state.winnerName} Gana! 🏆",
+                text = "¡${state.winnerName} Gana!",
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.primary,
                 textAlign = TextAlign.Center
@@ -57,12 +60,13 @@ fun WinnerChoiceScreen(
             modifier = Modifier.fillMaxWidth(0.85f),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            Button(onClick = { onSelectConsequence(true) }) {
+            Button(onClick = { onSelectConsequence(true) }, shape = ExpressiveButtonShape) {
                 Text("Recibir Premio")
             }
             if (!state.isSharedVictory) {
                 Button(
                     onClick = { onSelectConsequence(false) },
+                    shape = ExpressiveButtonShape,
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
                     Text("Aplicar Castigo")
@@ -94,14 +98,16 @@ fun ResolutionScreen(
         Card(
             modifier = Modifier
                 .fillMaxWidth(0.85f)
-                .height(200.dp)
+                .height(220.dp)
                 .clickable { showConsequenceDialog = true },
+            shape = ExpressiveAsymmetricCardShape,
             colors = CardDefaults.cardColors(
                 containerColor = if (state.isReward) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.errorContainer
-            )
+            ),
+            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
         ) {
             Box(
-                modifier = Modifier.fillMaxSize().padding(16.dp),
+                modifier = Modifier.fillMaxSize().padding(20.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -112,7 +118,7 @@ fun ResolutionScreen(
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = "👁️ Toca para ver instrucciones completas",
+                        text = "Toca para ver instrucciones completas",
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
                     )
@@ -124,14 +130,15 @@ fun ResolutionScreen(
 
         // Session Statistics Display
         Surface(
-            color = MaterialTheme.colorScheme.surfaceVariant,
+            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+            shape = RoundedCornerShape(20.dp),
             modifier = Modifier.fillMaxWidth(0.85f).padding(8.dp)
         ) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("📊 Estadísticas de la Sesión", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary)
+                Text("Estadísticas de la Sesión", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary)
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -155,6 +162,7 @@ fun ResolutionScreen(
 
         Button(
             onClick = onPlayAgain,
+            shape = ExpressiveButtonShape,
             modifier = Modifier.fillMaxWidth(0.85f).height(56.dp)
         ) {
             Text("Jugar de Nuevo")
@@ -164,6 +172,7 @@ fun ResolutionScreen(
     if (showConsequenceDialog) {
         AlertDialog(
             onDismissRequest = { showConsequenceDialog = false },
+            shape = RoundedCornerShape(24.dp),
             title = {
                 Text(
                     text = state.consequenceTitle,
@@ -179,8 +188,8 @@ fun ResolutionScreen(
                 )
             },
             confirmButton = {
-                Button(onClick = { showConsequenceDialog = false }) {
-                    Text("¡Entendido! 👍")
+                Button(onClick = { showConsequenceDialog = false }, shape = ExpressiveButtonShape) {
+                    Text("¡Entendido!")
                 }
             }
         )

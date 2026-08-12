@@ -25,10 +25,10 @@ fun TensionProgressBar(
     if (isMarathon) {
         // Marathon Mode: No linear progress bar, dynamic status badge instead
         val (statusText, statusColor) = when {
-            turnCount <= 4 -> "🟢 Tensión: Suave" to MaterialTheme.colorScheme.secondary
-            turnCount <= 9 -> "🟡 Tensión: En Aumento" to Color(0xFFFFB300)
-            turnCount <= 15 -> "🔴 Tensión: Alta Tensión" to MaterialTheme.colorScheme.primary
-            else -> "🔥 Tensión: Al Límite (Zona Crítica)" to MaterialTheme.colorScheme.error
+            turnCount <= 4 -> "Tensión: Suave" to MaterialTheme.colorScheme.secondary
+            turnCount <= 9 -> "Tensión: En Aumento" to Color(0xFFFFB300)
+            turnCount <= 15 -> "Tensión: Alta Tensión" to MaterialTheme.colorScheme.primary
+            else -> "Tensión: Al Límite (Zona Crítica)" to MaterialTheme.colorScheme.error
         }
 
         val animatedColor by animateColorAsState(targetValue = statusColor)
@@ -83,7 +83,7 @@ fun TensionProgressBar(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "🔥 Nivel de Tensión",
+                    text = "Nivel de Tensión",
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
                 )

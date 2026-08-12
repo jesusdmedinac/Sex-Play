@@ -49,3 +49,10 @@
 ## Feature: Card Click Description View (`docs/features/card_description_view.feature`)
 - [x] Scenario: Tapping an action card opens the detail dialog
 - [x] Scenario: Tapping a consequence card shows consequence instructions
+
+## Feature: Emoji Removal & Universal Typography (`docs/features/emoji_removal.feature`)
+- [x] Scenario: Clean button and label text rendering
+
+## Feature: Material 3 Expressive UI Transformation (`docs/features/m3_expressive.feature`)
+- [x] Scenario: Expressive spring motion on card interaction
+- [x] Scenario: Multi-layer tonal surfaces and asymmetric shapes

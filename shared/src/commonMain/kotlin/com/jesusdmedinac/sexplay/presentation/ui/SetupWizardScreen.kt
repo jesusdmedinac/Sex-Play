@@ -1,18 +1,91 @@
 package com.jesusdmedinac.sexplay.presentation.ui
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.jesusdmedinac.sexplay.domain.model.GameMode
 import com.jesusdmedinac.sexplay.domain.model.GameMood
 import com.jesusdmedinac.sexplay.domain.model.HardLimit
 import com.jesusdmedinac.sexplay.domain.model.IntensityLevel
 import com.jesusdmedinac.sexplay.domain.model.state.GameState
+import com.jesusdmedinac.sexplay.presentation.theme.ExpressiveButtonShape
+
+@Composable
+private fun ExpressiveOptionCard(
+    selected: Boolean,
+    onClick: () -> Unit,
+    title: String,
+    modifier: Modifier = Modifier
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+
+    val scale by animateFloatAsState(
+        targetValue = when {
+            isPressed -> 0.96f
+            selected -> 1.02f
+            else -> 1.0f
+        },
+        animationSpec = spring(
+            stiffness = Spring.StiffnessMediumLow,
+            dampingRatio = Spring.DampingRatioMediumBouncy
+        )
+    )
+
+    val animatedContainerColor by animateColorAsState(
+        targetValue = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceContainerLow
+    )
+
+    val animatedContentColor by animateColorAsState(
+        targetValue = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f)
+    )
+
+    Surface(
+        modifier = modifier
+            .fillMaxWidth(0.85f)
+            .padding(vertical = 6.dp)
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                onClick()
+            },
+        shape = RoundedCornerShape(20.dp),
+        color = animatedContainerColor,
+        shadowElevation = if (selected) 12.dp else 2.dp
+    ) {
+        Box(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 18.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
+                color = animatedContentColor
+            )
+        }
+    }
+}
 
 @Composable
 fun SetupStep1NamesScreen(
@@ -34,6 +107,7 @@ fun SetupStep1NamesScreen(
             value = player1Name,
             onValueChange = { player1Name = it },
             label = { Text("Nombre Jugador 1") },
+            shape = RoundedCornerShape(16.dp),
             modifier = Modifier.fillMaxWidth(0.85f)
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -42,15 +116,17 @@ fun SetupStep1NamesScreen(
             value = player2Name,
             onValueChange = { player2Name = it },
             label = { Text("Nombre Jugador 2") },
+            shape = RoundedCornerShape(16.dp),
             modifier = Modifier.fillMaxWidth(0.85f)
         )
         Spacer(modifier = Modifier.height(48.dp))
 
         Button(
             onClick = { onNext(player1Name, player2Name) },
+            shape = ExpressiveButtonShape,
             modifier = Modifier.fillMaxWidth(0.85f).height(56.dp)
         ) {
-            Text("Siguiente ➔")
+            Text("Siguiente")
         }
     }
 }
@@ -71,18 +147,16 @@ fun SetupStep2LocationScreen(
         Text("¿Dónde van a jugar hoy?", style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.primary)
         Spacer(modifier = Modifier.height(32.dp))
 
-        FilterChip(
+        ExpressiveOptionCard(
             selected = !isRemote,
             onClick = { isRemote = false },
-            label = { Text("🏡 En Persona (Mismo Dispositivo)") },
-            modifier = Modifier.fillMaxWidth(0.85f).padding(vertical = 8.dp)
+            title = "En Persona (Mismo Dispositivo)"
         )
 
-        FilterChip(
+        ExpressiveOptionCard(
             selected = isRemote,
             onClick = { isRemote = true },
-            label = { Text("🌐 Modo a Distancia / Remoto (Sin contacto presencial)") },
-            modifier = Modifier.fillMaxWidth(0.85f).padding(vertical = 8.dp)
+            title = "Modo a Distancia / Remoto (Sin contacto presencial)"
         )
 
         Spacer(modifier = Modifier.height(48.dp))
@@ -91,11 +165,11 @@ fun SetupStep2LocationScreen(
             modifier = Modifier.fillMaxWidth(0.85f),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            OutlinedButton(onClick = onBack) {
-                Text("⬅ Atrás")
+            OutlinedButton(onClick = onBack, shape = ExpressiveButtonShape) {
+                Text("Atrás")
             }
-            Button(onClick = { onNext(isRemote) }) {
-                Text("Siguiente ➔")
+            Button(onClick = { onNext(isRemote) }, shape = ExpressiveButtonShape) {
+                Text("Siguiente")
             }
         }
     }
@@ -118,11 +192,10 @@ fun SetupStep3DurationScreen(
         Spacer(modifier = Modifier.height(32.dp))
 
         GameMode.entries.forEach { mode ->
-            FilterChip(
+            ExpressiveOptionCard(
                 selected = selectedGameMode == mode,
                 onClick = { selectedGameMode = mode },
-                label = { Text(mode.displayName) },
-                modifier = Modifier.fillMaxWidth(0.85f).padding(vertical = 6.dp)
+                title = mode.displayName
             )
         }
 
@@ -132,11 +205,11 @@ fun SetupStep3DurationScreen(
             modifier = Modifier.fillMaxWidth(0.85f),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            OutlinedButton(onClick = onBack) {
-                Text("⬅ Atrás")
+            OutlinedButton(onClick = onBack, shape = ExpressiveButtonShape) {
+                Text("Atrás")
             }
-            Button(onClick = { onNext(selectedGameMode) }) {
-                Text("Siguiente ➔")
+            Button(onClick = { onNext(selectedGameMode) }, shape = ExpressiveButtonShape) {
+                Text("Siguiente")
             }
         }
     }
@@ -159,11 +232,10 @@ fun SetupStep4MoodScreen(
         Spacer(modifier = Modifier.height(32.dp))
 
         GameMood.entries.forEach { mood ->
-            FilterChip(
+            ExpressiveOptionCard(
                 selected = selectedMood == mood,
                 onClick = { selectedMood = mood },
-                label = { Text(mood.displayName) },
-                modifier = Modifier.fillMaxWidth(0.85f).padding(vertical = 6.dp)
+                title = mood.displayName
             )
         }
 
@@ -173,11 +245,11 @@ fun SetupStep4MoodScreen(
             modifier = Modifier.fillMaxWidth(0.85f),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            OutlinedButton(onClick = onBack) {
-                Text("⬅ Atrás")
+            OutlinedButton(onClick = onBack, shape = ExpressiveButtonShape) {
+                Text("Atrás")
             }
-            Button(onClick = { onNext(selectedMood) }) {
-                Text("Siguiente ➔")
+            Button(onClick = { onNext(selectedMood) }, shape = ExpressiveButtonShape) {
+                Text("Siguiente")
             }
         }
     }
@@ -200,11 +272,10 @@ fun SetupStep5IntensityScreen(
         Spacer(modifier = Modifier.height(32.dp))
 
         IntensityLevel.entries.forEach { level ->
-            FilterChip(
+            ExpressiveOptionCard(
                 selected = selectedIntensity == level,
                 onClick = { selectedIntensity = level },
-                label = { Text(level.displayName) },
-                modifier = Modifier.fillMaxWidth(0.85f).padding(vertical = 6.dp)
+                title = level.displayName
             )
         }
 
@@ -214,11 +285,11 @@ fun SetupStep5IntensityScreen(
             modifier = Modifier.fillMaxWidth(0.85f),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            OutlinedButton(onClick = onBack) {
-                Text("⬅ Atrás")
+            OutlinedButton(onClick = onBack, shape = ExpressiveButtonShape) {
+                Text("Atrás")
             }
-            Button(onClick = { onNext(selectedIntensity) }) {
-                Text("Siguiente ➔")
+            Button(onClick = { onNext(selectedIntensity) }, shape = ExpressiveButtonShape) {
+                Text("Siguiente")
             }
         }
     }
@@ -242,22 +313,18 @@ fun SetupStep6LimitsScreen(
         Spacer(modifier = Modifier.height(32.dp))
 
         HardLimit.entries.filter { it != HardLimit.PHYSICAL_CONTACT }.forEach { limit ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth(0.85f).padding(vertical = 6.dp)
-            ) {
-                Checkbox(
-                    checked = selectedLimits.contains(limit),
-                    onCheckedChange = { isChecked ->
-                        selectedLimits = if (isChecked) {
-                            selectedLimits + limit
-                        } else {
-                            selectedLimits - limit
-                        }
+            val isSelected = selectedLimits.contains(limit)
+            ExpressiveOptionCard(
+                selected = isSelected,
+                onClick = {
+                    selectedLimits = if (isSelected) {
+                        selectedLimits - limit
+                    } else {
+                        selectedLimits + limit
                     }
-                )
-                Text(limit.displayName, style = MaterialTheme.typography.bodyLarge)
-            }
+                },
+                title = limit.displayName
+            )
         }
 
         Spacer(modifier = Modifier.height(48.dp))
@@ -266,11 +333,11 @@ fun SetupStep6LimitsScreen(
             modifier = Modifier.fillMaxWidth(0.85f),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            OutlinedButton(onClick = onBack) {
-                Text("⬅ Atrás")
+            OutlinedButton(onClick = onBack, shape = ExpressiveButtonShape) {
+                Text("Atrás")
             }
-            Button(onClick = { onNext(selectedLimits) }) {
-                Text("Siguiente ➔")
+            Button(onClick = { onNext(selectedLimits) }, shape = ExpressiveButtonShape) {
+                Text("Siguiente")
             }
         }
     }
@@ -297,6 +364,7 @@ fun SetupStep7SafeWordScreen(
             onValueChange = { safeWord = it },
             label = { Text("Safe Word") },
             placeholder = { Text("Ej. Rojo, Piña, Parar") },
+            shape = RoundedCornerShape(16.dp),
             modifier = Modifier.fillMaxWidth(0.85f)
         )
 
@@ -306,14 +374,15 @@ fun SetupStep7SafeWordScreen(
             modifier = Modifier.fillMaxWidth(0.85f),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            OutlinedButton(onClick = onBack) {
-                Text("⬅ Atrás")
+            OutlinedButton(onClick = onBack, shape = ExpressiveButtonShape) {
+                Text("Atrás")
             }
             Button(
                 onClick = { onFinish(safeWord) },
+                shape = ExpressiveButtonShape,
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
             ) {
-                Text("¡Comenzar Partida! 🔥")
+                Text("¡Comenzar Partida!")
             }
         }
     }

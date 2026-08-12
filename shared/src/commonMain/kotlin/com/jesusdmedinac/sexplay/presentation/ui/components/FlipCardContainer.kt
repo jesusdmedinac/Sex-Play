@@ -1,8 +1,12 @@
 package com.jesusdmedinac.sexplay.presentation.ui.components
 
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.jesusdmedinac.sexplay.presentation.theme.ExpressiveAsymmetricCardShape
 
 @Composable
 fun FlipCardContainer(
@@ -26,6 +31,8 @@ fun FlipCardContainer(
     modifier: Modifier = Modifier
 ) {
     var flipped by remember { mutableStateOf(false) }
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
 
     // Trigger flip animation when cardText changes
     LaunchedEffect(cardText) {
@@ -37,26 +44,40 @@ fun FlipCardContainer(
         animationSpec = tween(durationMillis = 400)
     )
 
+    val springScale by animateFloatAsState(
+        targetValue = if (isPressed) 0.96f else 1.0f,
+        animationSpec = spring(
+            stiffness = Spring.StiffnessMediumLow,
+            dampingRatio = Spring.DampingRatioMediumBouncy
+        )
+    )
+
     Card(
         modifier = modifier
             .fillMaxWidth()
             .height(260.dp)
             .graphicsLayer {
+                scaleX = springScale
+                scaleY = springScale
                 rotationY = rotation
                 cameraDistance = 12f * density
             }
-            .clickable {
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
                 onCardClick()
             },
+        shape = ExpressiveAsymmetricCardShape,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(20.dp)
+                .padding(24.dp)
                 .graphicsLayer {
                     // Normalize text orientation when card is flipped 180 degrees
                     if (rotation > 90f) {
