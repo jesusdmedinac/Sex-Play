@@ -38,6 +38,9 @@ val SurfaceContainer = Color(0xFF25102A)
 val SurfaceContainerHigh = Color(0xFF342438)
 val SurfaceContainerHighest = Color(0xFF402F43)
 
+// Container border color
+val SurfaceContainerBorderColor = Color(0x1AFFB1C2)
+
 // M3 Expressive Asymmetric Shapes (32dp / 12dp alternation)
 val ExpressiveAsymmetricCardShape = RoundedCornerShape(
     topStart = 32.dp,
@@ -51,11 +54,12 @@ val ExpressivePillShape = RoundedCornerShape(9999.dp)
 
 // Material 3 Expressive Shapes Scale
 val ExpressiveShapes = Shapes(
-    extraSmall = RoundedCornerShape(8.dp),
-    small = RoundedCornerShape(12.dp),
+    extraSmall = RoundedCornerShape(12.dp),
+    small = RoundedCornerShape(20.dp),
     medium = ExpressiveAsymmetricCardShape,
     large = ExpressiveAsymmetricCardShape,
-    extraLarge = ExpressiveButtonShape
+    extraLarge = ExpressiveButtonShape,
+
 )
 
 // Eros & Ember Typography Hierarchy (Sora / Inter / Space Grotesk)
@@ -70,7 +74,7 @@ val ExpressiveTypography = Typography(
     headlineLarge = TextStyle(
         fontFamily = FontFamily.SansSerif,
         fontWeight = FontWeight.Bold,
-        fontSize = 32.sp,
+        fontSize = 48.sp,
         lineHeight = 40.sp
     ),
     titleMedium = TextStyle(

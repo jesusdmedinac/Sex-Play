@@ -4,6 +4,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.jesusdmedinac.sexplay.domain.model.GameMode
 import com.jesusdmedinac.sexplay.domain.model.GameMood
@@ -24,6 +26,7 @@ import com.jesusdmedinac.sexplay.domain.model.HardLimit
 import com.jesusdmedinac.sexplay.domain.model.IntensityLevel
 import com.jesusdmedinac.sexplay.domain.model.state.GameState
 import com.jesusdmedinac.sexplay.presentation.theme.ExpressiveButtonShape
+import com.jesusdmedinac.sexplay.presentation.theme.SurfaceContainerBorderColor
 
 @Composable
 private fun ExpressiveOptionCard(
@@ -52,7 +55,9 @@ private fun ExpressiveOptionCard(
     )
 
     val animatedContentColor by animateColorAsState(
-        targetValue = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f)
+        targetValue = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface.copy(
+            alpha = 0.85f
+        )
     )
 
     Surface(
@@ -87,6 +92,7 @@ private fun ExpressiveOptionCard(
     }
 }
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun SetupStep1NamesScreen(
     state: GameState.SetupStep1Names,
@@ -96,37 +102,83 @@ fun SetupStep1NamesScreen(
     var player2Name by remember { mutableStateOf(state.player2Name) }
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(24.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
-        Text("¿Cómo se llaman?", style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.primary)
+        Spacer(modifier = Modifier.weight(1f))
+        Text(
+            "¿Cómo se llaman?",
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.primary,
+            textAlign = TextAlign.Center,
+        )
+        Text(
+            "Introduce sus nombres para personalizar la experiencia y subir la temperatura.",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+        )
         Spacer(modifier = Modifier.height(32.dp))
 
-        OutlinedTextField(
-            value = player1Name,
-            onValueChange = { player1Name = it },
-            label = { Text("Nombre Jugador 1") },
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier.fillMaxWidth(0.85f)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = player2Name,
-            onValueChange = { player2Name = it },
-            label = { Text("Nombre Jugador 2") },
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier.fillMaxWidth(0.85f)
-        )
-        Spacer(modifier = Modifier.height(48.dp))
-
-        Button(
-            onClick = { onNext(player1Name, player2Name) },
-            shape = ExpressiveButtonShape,
-            modifier = Modifier.fillMaxWidth(0.85f).height(56.dp)
+        Surface(
+            modifier = Modifier
+                .widthIn(max = 600.dp)
+                .wrapContentHeight()
+                .border(1.dp, SurfaceContainerBorderColor, MaterialTheme.shapes.large),
+            shape = MaterialTheme.shapes.large,
+            color = MaterialTheme.colorScheme.surfaceContainerLow,
+            shadowElevation = 12.dp,
         ) {
-            Text("Siguiente")
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 32.dp, horizontal = 32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+            ) {
+                OutlinedTextField(
+                    value = player1Name,
+                    onValueChange = { player1Name = it },
+                    label = { Text("Nombre Jugador 1") },
+                    shape = MaterialTheme.shapes.small,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                OutlinedTextField(
+                    value = player2Name,
+                    onValueChange = { player2Name = it },
+                    label = { Text("Nombre Jugador 2") },
+                    shape = MaterialTheme.shapes.small,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+
+        Spacer(
+            modifier = Modifier
+                .weight(1f)
+        )
+
+        Row(
+            modifier = Modifier
+                .widthIn(max = 600.dp)
+                .wrapContentHeight()
+                .padding(bottom = 24.dp),
+        ) {
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                onClick = { onNext(player1Name, player2Name) },
+                shape = MaterialTheme.shapes.extraLarge,
+            ) {
+                Text("Siguiente")
+            }
         }
     }
 }
@@ -144,7 +196,11 @@ fun SetupStep2LocationScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("¿Dónde van a jugar hoy?", style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.primary)
+        Text(
+            "¿Dónde van a jugar hoy?",
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
         Spacer(modifier = Modifier.height(32.dp))
 
         ExpressiveOptionCard(
@@ -188,7 +244,11 @@ fun SetupStep3DurationScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("¿Cuánto tiempo tienen?", style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.primary)
+        Text(
+            "¿Cuánto tiempo tienen?",
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
         Spacer(modifier = Modifier.height(32.dp))
 
         GameMode.entries.forEach { mode ->
@@ -228,7 +288,11 @@ fun SetupStep4MoodScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("¿Qué ambiente prefieren hoy?", style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.primary)
+        Text(
+            "¿Qué ambiente prefieren hoy?",
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
         Spacer(modifier = Modifier.height(32.dp))
 
         GameMood.entries.forEach { mood ->
@@ -268,7 +332,11 @@ fun SetupStep5IntensityScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("¿Nivel máximo de castigo?", style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.primary)
+        Text(
+            "¿Nivel máximo de castigo?",
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
         Spacer(modifier = Modifier.height(32.dp))
 
         IntensityLevel.entries.forEach { level ->
@@ -308,8 +376,16 @@ fun SetupStep6LimitsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("¿Límites a excluir?", style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.primary)
-        Text("(Opcional)", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
+        Text(
+            "¿Límites a excluir?",
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
+        Text(
+            "(Opcional)",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+        )
         Spacer(modifier = Modifier.height(32.dp))
 
         HardLimit.entries.filter { it != HardLimit.PHYSICAL_CONTACT }.forEach { limit ->
@@ -356,7 +432,11 @@ fun SetupStep7SafeWordScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("Palabra de Seguridad", style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.primary)
+        Text(
+            "Palabra de Seguridad",
+            style = MaterialTheme.typography.headlineLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
         Spacer(modifier = Modifier.height(32.dp))
 
         OutlinedTextField(
