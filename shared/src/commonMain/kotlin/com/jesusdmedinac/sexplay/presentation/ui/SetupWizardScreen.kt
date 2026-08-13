@@ -96,7 +96,7 @@ private fun ExpressiveOptionCard(
 @Composable
 fun SetupStep1NamesScreen(
     state: GameState.SetupStep1Names,
-    onNext: (String, String) -> Unit
+    onNext: (GameState.SetupStep1Names) -> Unit
 ) {
     var player1Name by remember { mutableStateOf(state.player1Name) }
     var player2Name by remember { mutableStateOf(state.player2Name) }
@@ -174,7 +174,7 @@ fun SetupStep1NamesScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),
-                onClick = { onNext(player1Name, player2Name) },
+                onClick = { onNext(GameState.SetupStep1Names(player1Name, player2Name)) },
                 shape = MaterialTheme.shapes.extraLarge,
             ) {
                 Text("Siguiente")

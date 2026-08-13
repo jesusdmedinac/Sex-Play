@@ -20,10 +20,9 @@ class GameViewModel : ViewModel() {
     val state: StateFlow<GameState> = _state.asStateFlow()
 
     // Step 1 -> Step 2
-    fun goToStep2Location(player1Name: String, player2Name: String) {
+    fun goToStep2Location(setupStep1Names: GameState.SetupStep1Names) {
         _state.value = GameState.SetupStep2Location(
-            player1Name = player1Name.ifBlank { "Jugador 1" },
-            player2Name = player2Name.ifBlank { "Jugador 2" }
+            setupStep1Names = setupStep1Names,
         )
     }
 
@@ -31,8 +30,7 @@ class GameViewModel : ViewModel() {
     fun goToStep3Duration(isRemote: Boolean) {
         val current = _state.value as? GameState.SetupStep2Location ?: return
         _state.value = GameState.SetupStep3Duration(
-            player1Name = current.player1Name,
-            player2Name = current.player2Name,
+            setupStep1Names = current.setupStep1Names,
             isRemote = isRemote
         )
     }
@@ -41,8 +39,7 @@ class GameViewModel : ViewModel() {
     fun goToStep4Mood(gameMode: GameMode) {
         val current = _state.value as? GameState.SetupStep3Duration ?: return
         _state.value = GameState.SetupStep4Mood(
-            player1Name = current.player1Name,
-            player2Name = current.player2Name,
+            setupStep1Names = current.setupStep1Names,
             isRemote = current.isRemote,
             gameMode = gameMode
         )
@@ -52,8 +49,7 @@ class GameViewModel : ViewModel() {
     fun goToStep5Intensity(selectedMood: GameMood) {
         val current = _state.value as? GameState.SetupStep4Mood ?: return
         _state.value = GameState.SetupStep5Intensity(
-            player1Name = current.player1Name,
-            player2Name = current.player2Name,
+            setupStep1Names = current.setupStep1Names,
             isRemote = current.isRemote,
             gameMode = current.gameMode,
             selectedMood = selectedMood
@@ -64,8 +60,7 @@ class GameViewModel : ViewModel() {
     fun goToStep6Limits(maxIntensity: IntensityLevel) {
         val current = _state.value as? GameState.SetupStep5Intensity ?: return
         _state.value = GameState.SetupStep6Limits(
-            player1Name = current.player1Name,
-            player2Name = current.player2Name,
+            setupStep1Names = current.setupStep1Names,
             isRemote = current.isRemote,
             gameMode = current.gameMode,
             selectedMood = current.selectedMood,
@@ -77,8 +72,7 @@ class GameViewModel : ViewModel() {
     fun goToStep7SafeWord(selectedHardLimits: Set<HardLimit>) {
         val current = _state.value as? GameState.SetupStep6Limits ?: return
         _state.value = GameState.SetupStep7SafeWord(
-            player1Name = current.player1Name,
-            player2Name = current.player2Name,
+            setupStep1Names = current.setupStep1Names,
             isRemote = current.isRemote,
             gameMode = current.gameMode,
             selectedMood = current.selectedMood,
@@ -90,32 +84,38 @@ class GameViewModel : ViewModel() {
     // Back handlers
     fun backToStep1() {
         val current = _state.value as? GameState.SetupStep2Location ?: return
-        _state.value = GameState.SetupStep1Names(current.player1Name, current.player2Name)
+        val setupStep1Names = current.setupStep1Names
+        _state.value = setupStep1Names
     }
 
     fun backToStep2() {
         val current = _state.value as? GameState.SetupStep3Duration ?: return
-        _state.value = GameState.SetupStep2Location(current.player1Name, current.player2Name, current.isRemote)
+        val setupStep1Names = current.setupStep1Names
+        _state.value = GameState.SetupStep2Location(setupStep1Names, current.isRemote)
     }
 
     fun backToStep3() {
         val current = _state.value as? GameState.SetupStep4Mood ?: return
-        _state.value = GameState.SetupStep3Duration(current.player1Name, current.player2Name, current.isRemote, current.gameMode)
+        val setupStep1Names = current.setupStep1Names
+        _state.value = GameState.SetupStep3Duration(setupStep1Names, current.isRemote, current.gameMode)
     }
 
     fun backToStep4() {
         val current = _state.value as? GameState.SetupStep5Intensity ?: return
-        _state.value = GameState.SetupStep4Mood(current.player1Name, current.player2Name, current.isRemote, current.gameMode, current.selectedMood)
+        val setupStep1Names = current.setupStep1Names
+        _state.value = GameState.SetupStep4Mood(setupStep1Names, current.isRemote, current.gameMode, current.selectedMood)
     }
 
     fun backToStep5() {
         val current = _state.value as? GameState.SetupStep6Limits ?: return
-        _state.value = GameState.SetupStep5Intensity(current.player1Name, current.player2Name, current.isRemote, current.gameMode, current.selectedMood, current.maxIntensity)
+        val setupStep1Names = current.setupStep1Names
+        _state.value = GameState.SetupStep5Intensity(setupStep1Names, current.isRemote, current.gameMode, current.selectedMood, current.maxIntensity)
     }
 
     fun backToStep6() {
         val current = _state.value as? GameState.SetupStep7SafeWord ?: return
-        _state.value = GameState.SetupStep6Limits(current.player1Name, current.player2Name, current.isRemote, current.gameMode, current.selectedMood, current.maxIntensity, current.selectedHardLimits)
+        val setupStep1Names = current.setupStep1Names
+        _state.value = GameState.SetupStep6Limits(setupStep1Names, current.isRemote, current.gameMode, current.selectedMood, current.maxIntensity, current.selectedHardLimits)
     }
 
     fun finishSetup(safeWord: String, currentTimeMillis: Long = 0L) {
@@ -132,14 +132,13 @@ class GameViewModel : ViewModel() {
         val initialCard = filteredDeck.randomOrNull() ?: ActionCard("0", "Besa apasionadamente a tu pareja.")
 
         _state.value = GameState.Playing(
-            player1Name = current.player1Name,
-            player2Name = current.player2Name,
+            setupStep1Names = current.setupStep1Names,
             selectedMood = current.selectedMood,
             maxIntensity = current.maxIntensity,
             gameMode = current.gameMode,
             safeWord = finalSafeWord,
             selectedHardLimits = finalLimits,
-            activePlayerName = current.player1Name,
+            activePlayerName = current.setupStep1Names.player1Name,
             currentCard = initialCard,
             activeDeck = filteredDeck,
             turnCount = 1,
@@ -162,10 +161,11 @@ class GameViewModel : ViewModel() {
     fun nextTurn(currentTimeMillis: Long = 0L) {
         val currentState = _state.value as? GameState.Playing ?: return
 
+        val setupStep1Names = currentState.setupStep1Names
         if (currentState.turnCount >= currentState.gameMode.maxCards) {
             val duration = calculateDuration(currentState.startTimeMillis, currentTimeMillis)
             _state.value = GameState.WinnerChoice(
-                winnerName = "${currentState.player1Name} y ${currentState.player2Name}",
+                winnerName = "${setupStep1Names.player1Name} y ${setupStep1Names.player2Name}",
                 loserName = "Nadie",
                 maxIntensity = currentState.maxIntensity,
                 totalTurnsPlayed = currentState.turnCount,
@@ -175,10 +175,10 @@ class GameViewModel : ViewModel() {
             return
         }
 
-        val nextPlayer = if (currentState.activePlayerName == currentState.player1Name) {
-            currentState.player2Name
+        val nextPlayer = if (currentState.activePlayerName == setupStep1Names.player1Name) {
+            setupStep1Names.player2Name
         } else {
-            currentState.player1Name
+            setupStep1Names.player1Name
         }
         val nextCard = currentState.activeDeck.randomOrNull() ?: currentState.currentCard
 
@@ -191,10 +191,11 @@ class GameViewModel : ViewModel() {
 
     fun surrender(currentTimeMillis: Long = 0L) {
         val currentState = _state.value as? GameState.Playing ?: return
-        val winner = if (currentState.activePlayerName == currentState.player1Name) {
-            currentState.player2Name
+        val setupStep1Names = currentState.setupStep1Names
+        val winner = if (currentState.activePlayerName == setupStep1Names.player1Name) {
+            setupStep1Names.player2Name
         } else {
-            currentState.player1Name
+            setupStep1Names.player1Name
         }
         val loser = currentState.activePlayerName
         val duration = calculateDuration(currentState.startTimeMillis, currentTimeMillis)

@@ -13,29 +13,25 @@ sealed class GameState {
     ) : GameState()
     
     data class SetupStep2Location(
-        val player1Name: String,
-        val player2Name: String,
+        val setupStep1Names: SetupStep1Names,
         val isRemote: Boolean = false
     ) : GameState()
 
     data class SetupStep3Duration(
-        val player1Name: String,
-        val player2Name: String,
+        val setupStep1Names: SetupStep1Names,
         val isRemote: Boolean,
         val gameMode: GameMode = GameMode.EXPRESS
     ) : GameState()
 
     data class SetupStep4Mood(
-        val player1Name: String,
-        val player2Name: String,
+        val setupStep1Names: SetupStep1Names,
         val isRemote: Boolean,
         val gameMode: GameMode,
         val selectedMood: GameMood = GameMood.MIXED
     ) : GameState()
 
     data class SetupStep5Intensity(
-        val player1Name: String,
-        val player2Name: String,
+        val setupStep1Names: SetupStep1Names,
         val isRemote: Boolean,
         val gameMode: GameMode,
         val selectedMood: GameMood,
@@ -43,8 +39,7 @@ sealed class GameState {
     ) : GameState()
 
     data class SetupStep6Limits(
-        val player1Name: String,
-        val player2Name: String,
+        val setupStep1Names: SetupStep1Names,
         val isRemote: Boolean,
         val gameMode: GameMode,
         val selectedMood: GameMood,
@@ -53,8 +48,7 @@ sealed class GameState {
     ) : GameState()
 
     data class SetupStep7SafeWord(
-        val player1Name: String,
-        val player2Name: String,
+        val setupStep1Names: SetupStep1Names,
         val isRemote: Boolean,
         val gameMode: GameMode,
         val selectedMood: GameMood,
@@ -64,8 +58,7 @@ sealed class GameState {
     ) : GameState()
     
     data class Playing(
-        val player1Name: String,
-        val player2Name: String,
+        val setupStep1Names: SetupStep1Names,
         val selectedMood: GameMood,
         val maxIntensity: IntensityLevel,
         val gameMode: GameMode,

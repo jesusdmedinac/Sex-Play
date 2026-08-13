@@ -45,8 +45,8 @@ fun App() {
                 is GameState.SetupStep1Names -> {
                     SetupStep1NamesScreen(
                         state = currentState,
-                        onNext = { p1, p2 ->
-                            viewModel.goToStep2Location(p1, p2)
+                        onNext = { setupStep1Names ->
+                            viewModel.goToStep2Location(setupStep1Names)
                         }
                     )
                 }
