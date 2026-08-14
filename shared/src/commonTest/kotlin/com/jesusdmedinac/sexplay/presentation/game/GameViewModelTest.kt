@@ -53,7 +53,7 @@ class GameViewModelTest {
         assertEquals("Alice", playing.player1Name)
         assertEquals("Bob", playing.player2Name)
         assertEquals("Red", playing.safeWord)
-        assertTrue(playing.selectedHardLimits.contains(HardLimit.PHYSICAL_CONTACT)) // Added because isRemote was true
+        assertTrue(playing.isRemote)
         assertTrue(playing.selectedHardLimits.contains(HardLimit.TEMPERATURE_PLAY))
     }
 
@@ -69,8 +69,29 @@ class GameViewModelTest {
         viewModel.finishSetup("Red")
 
         val playing = viewModel.state.value as GameState.Playing
-        assertFalse(playing.activeDeck.any { it.tags.contains(HardLimit.PHYSICAL_CONTACT) })
+        assertTrue(playing.activeDeck.all { it.isRemote })
         assertTrue(playing.activeDeck.isNotEmpty())
+    }
+
+    @Test
+    fun `Enabling Remote Play Mode only selects remote-compatible consequences`() {
+        val viewModel = GameViewModel()
+        viewModel.goToStep2Location("Alice", "Bob")
+        viewModel.goToStep3Duration(isRemote = true)
+        viewModel.goToStep4Mood(GameMode.EXPRESS)
+        viewModel.goToStep5Intensity(GameMood.INTENSE)
+        viewModel.goToStep6Limits(IntensityLevel.EXTREME)
+        viewModel.goToStep7SafeWord(emptySet())
+        viewModel.finishSetup("Red")
+        viewModel.surrender()
+
+        val winnerState = viewModel.state.value as GameState.WinnerChoice
+        assertTrue(winnerState.isRemote)
+
+        viewModel.selectConsequence(isReward = true)
+        val resolution = viewModel.state.value as GameState.Resolution
+        assertTrue(resolution.isRemote)
+        assertTrue(resolution.consequenceTitle.isNotBlank())
     }
 
     @Test

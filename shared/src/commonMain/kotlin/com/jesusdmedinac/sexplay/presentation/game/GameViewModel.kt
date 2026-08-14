@@ -26,6 +26,10 @@ class GameViewModel : ViewModel() {
         )
     }
 
+    fun goToStep2Location(player1Name: String, player2Name: String) {
+        goToStep2Location(GameState.SetupStep1Names(player1Name, player2Name))
+    }
+
     // Step 2 -> Step 3
     fun goToStep3Duration(isRemote: Boolean) {
         val current = _state.value as? GameState.SetupStep2Location ?: return
@@ -122,22 +126,26 @@ class GameViewModel : ViewModel() {
         val current = _state.value as? GameState.SetupStep7SafeWord ?: return
         val finalSafeWord = safeWord.ifBlank { "Rojo" }
 
-        val finalLimits = if (current.isRemote) {
-            current.selectedHardLimits + HardLimit.PHYSICAL_CONTACT
-        } else {
-            current.selectedHardLimits
-        }
-
-        val filteredDeck = filterDeck(baseActionCards, current.selectedMood, finalLimits)
-        val initialCard = filteredDeck.randomOrNull() ?: ActionCard("0", "Besa apasionadamente a tu pareja.")
+        val filteredDeck = filterDeck(
+            deck = baseActionCards,
+            mood = current.selectedMood,
+            hardLimits = current.selectedHardLimits,
+            isRemote = current.isRemote
+        )
+        val initialCard = filteredDeck.randomOrNull() ?: ActionCard(
+            id = "0",
+            text = if (current.isRemote) "Envía una mirada seductora a la cámara durante 30 segundos." else "Besa apasionadamente a tu pareja.",
+            isRemote = current.isRemote
+        )
 
         _state.value = GameState.Playing(
             setupStep1Names = current.setupStep1Names,
+            isRemote = current.isRemote,
             selectedMood = current.selectedMood,
             maxIntensity = current.maxIntensity,
             gameMode = current.gameMode,
             safeWord = finalSafeWord,
-            selectedHardLimits = finalLimits,
+            selectedHardLimits = current.selectedHardLimits,
             activePlayerName = current.setupStep1Names.player1Name,
             currentCard = initialCard,
             activeDeck = filteredDeck,
@@ -149,12 +157,14 @@ class GameViewModel : ViewModel() {
     fun filterDeck(
         deck: List<ActionCard>,
         mood: GameMood,
-        hardLimits: Set<HardLimit>
+        hardLimits: Set<HardLimit>,
+        isRemote: Boolean = false
     ): List<ActionCard> {
         return deck.filter { card ->
             val matchesMood = if (mood == GameMood.MIXED) true else card.mood == mood
             val respectsLimits = card.tags.none { it in hardLimits }
-            matchesMood && respectsLimits
+            val matchesRemote = isRemote == card.isRemote
+            matchesMood && respectsLimits && matchesRemote
         }
     }
 
@@ -168,6 +178,7 @@ class GameViewModel : ViewModel() {
                 winnerName = "${setupStep1Names.player1Name} y ${setupStep1Names.player2Name}",
                 loserName = "Nadie",
                 maxIntensity = currentState.maxIntensity,
+                isRemote = currentState.isRemote,
                 totalTurnsPlayed = currentState.turnCount,
                 durationSeconds = duration,
                 isSharedVictory = true
@@ -204,6 +215,7 @@ class GameViewModel : ViewModel() {
             winnerName = winner,
             loserName = loser,
             maxIntensity = currentState.maxIntensity,
+            isRemote = currentState.isRemote,
             totalTurnsPlayed = currentState.turnCount,
             durationSeconds = duration,
             isSharedVictory = false
@@ -217,7 +229,9 @@ class GameViewModel : ViewModel() {
         val maxLevelInt = currentState.maxIntensity.level
 
         val validConsequences = allConsequences.filter {
-            it.type == consequenceType && it.level.level <= maxLevelInt
+            it.type == consequenceType &&
+                it.level.level <= maxLevelInt &&
+                (!currentState.isRemote || it.isRemote)
         }
 
         val selected = validConsequences.randomOrNull()
@@ -230,6 +244,7 @@ class GameViewModel : ViewModel() {
             consequenceTitle = title,
             consequenceDescription = desc,
             isReward = isReward,
+            isRemote = currentState.isRemote,
             totalTurnsPlayed = currentState.totalTurnsPlayed,
             durationSeconds = currentState.durationSeconds,
             isSharedVictory = currentState.isSharedVictory

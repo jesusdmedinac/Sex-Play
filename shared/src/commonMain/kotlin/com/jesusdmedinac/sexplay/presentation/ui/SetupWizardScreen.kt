@@ -405,7 +405,7 @@ fun SetupStep6LimitsScreen(
         )
         Spacer(modifier = Modifier.height(32.dp))
 
-        HardLimit.entries.filter { it != HardLimit.PHYSICAL_CONTACT }.forEach { limit ->
+        HardLimit.entries.forEach { limit ->
             val isSelected = selectedLimits.contains(limit)
             ExpressiveOptionCard(
                 selected = isSelected,

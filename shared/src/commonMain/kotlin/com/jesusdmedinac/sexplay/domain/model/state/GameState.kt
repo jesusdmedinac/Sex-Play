@@ -59,6 +59,7 @@ sealed class GameState {
     
     data class Playing(
         val setupStep1Names: SetupStep1Names,
+        val isRemote: Boolean,
         val selectedMood: GameMood,
         val maxIntensity: IntensityLevel,
         val gameMode: GameMode,
@@ -69,12 +70,16 @@ sealed class GameState {
         val activeDeck: List<ActionCard>,
         val turnCount: Int = 1,
         val startTimeMillis: Long = 0L
-    ) : GameState()
+    ) : GameState() {
+        val player1Name: String get() = setupStep1Names.player1Name
+        val player2Name: String get() = setupStep1Names.player2Name
+    }
     
     data class WinnerChoice(
         val winnerName: String,
         val loserName: String,
         val maxIntensity: IntensityLevel,
+        val isRemote: Boolean = false,
         val totalTurnsPlayed: Int = 1,
         val durationSeconds: Long = 0L,
         val isSharedVictory: Boolean = false
@@ -86,6 +91,7 @@ sealed class GameState {
         val consequenceTitle: String,
         val consequenceDescription: String = "",
         val isReward: Boolean,
+        val isRemote: Boolean = false,
         val totalTurnsPlayed: Int = 1,
         val durationSeconds: Long = 0L,
         val isSharedVictory: Boolean = false
