@@ -8,8 +8,8 @@ import com.jesusdmedinac.sexplay.domain.model.IntensityLevel
 
 sealed class GameState {
     data class SetupStep1Names(
-        val player1Name: String = "Jugador 1",
-        val player2Name: String = "Jugador 2"
+        val player1Name: String = "",
+        val player2Name: String = ""
     ) : GameState()
     
     data class SetupStep2Location(

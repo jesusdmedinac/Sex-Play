@@ -156,6 +156,23 @@ fun SetupStep1NamesScreen(
                     shape = MaterialTheme.shapes.small,
                     modifier = Modifier.fillMaxWidth()
                 )
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                HorizontalDivider(
+                    modifier = Modifier,
+                    thickness = 1.dp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                Text(
+                    "* Los nombres se usarán en las cartas de acción.",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Center,
+                )
             }
         }
 
